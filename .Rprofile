@@ -1,0 +1,1 @@
+Sys.setenv("LANGUAGE"="fr_FR.utf8")

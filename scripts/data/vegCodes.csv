@@ -1,0 +1,174 @@
+Code,commonName,scientificShort,scientificLong,LandisCode,qcCode,allometryCode
+100,Spruce,,Picea,NA,NA,NA
+101,Black spruce,Picea mariana,Picea mariana (Mill.) BSP,PICE.MAR,EPN,Black spruce
+102,Red spruce,Picea rubens,Picea rubens Sarg.,PICE.RUB,EPR,Red spruce
+103,Norway spruce *,,Picea abies (L.) Karst.,NA,EPO,NA
+104,Engelmann spruce,Picea engelmannii,Picea engelmannii Parry ex Engelm.,PICE.ENG,NA,NA
+105,White spruce,Picea glauca,Picea glauca (Moench) Voss,PICE.GLA,EPB,White spruce
+106,Sitka spruce,Picea sitchensis,Picea sitchensis (Bong.) Carriﾊre,PICE.SIT,NA,NA
+107,Black and red spruce,,Picea mariana (Mill.) BSP and Picea rubens Sarg.,NA,NA,NA
+108,Red and white spruce,,Picea rubens Sarg. and Picea glauca (Moench) Voss,NA,NA,NA
+109,Other spruce,,NA,NA,NA,NA
+200,Pine,,Pinus,NA,NA,NA
+201,Western white pine,,Pinus monticola Dougl. ex D. Don,PINU.MON,NA,NA
+202,Eastern white pine,Pinus strobus,Pinus strobus L.,PINU.STR,PIB,Eastern white pine
+203,Jack pine,Pinus banksiana,Pinus banksiana Lamb.,PINU.BAN,PIG,Jack pine
+204,Lodgepole pine,Pinus contorta,Pinus contorta Dougl. ex Loud. var. latifolia Engelm.,PINU.CON.LAT,NA,NA
+205,Shore pine,,Pinus contorta var. contorta,PINU.CON.CON,NA,NA
+206,Whitebark pine,Pinus albicaulis,Pinus albicaulis Engelm.,PINU.ALB,NA,NA
+207,Austrian pine *,,Pinus nigra Arnold,NA,NA,NA
+208,Ponderosa pine,Pinus ponderosa,Pinus ponderosa P. Laws. ex C. Laws.,PINU.PON,NA,NA
+209,Red pine,Pinus resinosa,Pinus resinosa Ait.,PINU.RES,PIR,Red pine
+210,Pitch pine,,Pinus rigida Mill.,NA,PID,NA
+211,Scots pine **,,Pinus sylvestris L.,NA,PIS,NA
+212,Mugho pine *,,Pinus mugo Turra,NA,NA,NA
+213,Limber pine,,Pinus flexilis James,NA,NA,NA
+214,"Jack, lodgepole, and shore pine",,"Pinus banksiana Lamb., Pinus contorta Dougl. ex  Loud. var. latifolia Engelm.,",NA,NA,NA
+215,Other pine,,NA,NA,NA,NA
+300,Fir,,Abies,NA,NA,NA
+301,Pacific silver fir,Abies amabilis,Abies amabilis (Dougl. ex Loud.) Dougl. ex. J. Forbes,ABIE.AMA,NA,NA
+302,Balsam fir,Abies balsamea,Abies balsamea (L.) Mill.,ABIE.BAL,SAB,Balsam fir
+303,Grand fir,Abies grandis,Abies grandis (Dougl. ex D. Don) Lindl.,ABIE.GRA,NA,NA
+304,Subalpine fir,Abies lasiocarpa,Abies lasiocarpa (Hook.) Nutt.,ABIE.LAS,NA,NA
+305,Balsam and alpine fir,,Abies balsamea (L.) Mill. and Abies lasiocarpa (Hook.) Nutt.,NA,NA,NA
+306,"Alpine, amabilis, and grand fir",,"Abies lasiocarpa (Hook.) Nutt., Abies amabilis (Dougl. ex Loud.) Dougl. ex. J. Forbes,",NA,NA,NA
+320,Spruce and balsam fir,,Picea and Abies balsamea (L.) Mill.,NA,NA,NA
+321,Balsam fir and spruce,,Abies balsamea (L.) Mill. and Picea,NA,NA,NA
+400,Hemlock,,Tsuga,NA,NA,NA
+401,Eastern hemlock,Tsuga canadensis,Tsuga canadensis (L.) Carriﾊre,TSUG.CAN,PRU,Eastern hemlock
+402,Western hemlock,Tsuga heterophylla,Tsuga heterophylla (Raf.) Sarg.,TSUG.HET,NA,NA
+403,Mountain hemlock,Tsuga mertensiana,Tsuga mertensiana (Bong.) Carriﾊre,TSUG.MER,NA,NA
+404,Western and mountain hemlock,,Tsuga heterophylla (Raf.) Sarg. and Tsuga mertensiana (Bong.) Carriﾊre,NA,NA,NA
+500,Douglas-fir,Pseudotsuga menziesii,"Pseudotsuga menziesii  var. menziesii(Mirb.) Franco,",PSEU.MEN,NA,NA
+600,Tamarack/larch,,Larix,NA,NA,NA
+601,European larch **,,Larix decidua Mill.,NA,NA,NA
+602,Tamarack,Larix laricina,Larix laricina (Du Roi) K. Koch,LARI.LAR,MEL,Tamarack larch
+603,Western larch,Larix occidentalis,Larix occidentalis Nutt.,LARI.OCC,NA,NA
+604,Subalpine larch,,Larix lyallii Parl.,LARI.LYA,NA,NA
+605,Japanese larch*,,Larix kaempferi (Lamb.) Carriﾊre,NA,NA,NA
+700,Cedar,,Thuja,NA,NA,NA
+701,Eastern white-cedar,Thuja occidentalis,Thuja occidentalis L.,THUJ.SPP.ALL,THO,Eastern white cedar
+702,Western redcedar,Thuja plicata,Thuja plicata Donn ex D. Don,THUJ.PLI,NA,NA
+703,Cedar and other conifers,,NA,NA,NA,NA
+800,Juniper (cedar),,Juniperus,NA,NA,NA
+801,Eastern redcedar,,Juniperus virginiana L.,NA,NA,NA
+802,Rocky Mountain juniper,,Juniperus scopulorum Sarg.,NA,NA,NA
+900,Yew,,Taxus,NA,NA,NA
+901,Western yew,,Taxus brevifolia Nutt.,NA,NA,NA
+1000,Cypress,,Chamaecyparis,NA,NA,NA
+1001,Yellow cypress,Chamaecyparis nootkatensis,Chamaecyparis nootkatensis (D. Don) Spach,CHAM.NOO,NA,NA
+1100,Other softwoods/other conifers,,NA,NA,NA,NA
+1150,Unspecified softwood species,,NA,NA,NA,NA
+1200,Poplar/aspen,Populus sp.,Populus,POPU.SPP,NA,NA
+1201,Trembling aspen,Populus tremuloides,Populus tremuloides Michx.,POPU.TRE,PET,Trembling aspen
+1202,European white poplar *,,Populus alba L.,NA,NA,NA
+1203,Balsam poplar,Populus balsamifera,Populus balsamifera L.,POPU.BAL,PEB,NA
+1204,Black cottonwood,,Populus trichocarpa Torr. & A. Gray,POPU.TRI,NA,NA
+1205,Eastern cottonwood,,Populus deltoides Bartr. ex Marsh. ssp. deltoides,NA,PED,NA
+1206,Largetooth aspen,Populus grandidentata,Populus grandidentata Michx.,POPU.GRA,PEG,NA
+1207,Carolina poplar *,,Populus ??canadensis Moench cv. Eugenei,NA,NA,NA
+1208,Lombardy poplar *,,Populus nigra L. cv. Italica,NA,NA,NA
+1209,Hybrid poplar,,Populus sp. ? Populus  sp.,NA,NA,NA
+1210,Other poplar,,NA,NA,NA,NA
+1300,Birch,,Betula,NA,NA,NA
+1301,Yellow birch,Betula alleghaniensis,Betula alleghaniensis Britt.,BETU.ALL,BOJ,Yellow birch
+1302,Cherry birch,,Betula lenta L.,NA,NA,NA
+1303,White birch,Betula papyrifera,Betula papyrifera Marsh.,BETU.PAP,BOP,White birch
+1304,Gray birch,,Betula populifolia Marsh.,NA,BOG,NA
+1305,Alaska paper birch,,Betula neoalaskana Sarg.,NA,NA,NA
+1306,Mountain paper birch,,Betula cordifolia Regel,NA,NA,NA
+1307,Other birch,,NA,NA,NA,NA
+1400,Maple,,Acer,NA,NA,NA
+1401,Sugar maple,Acer saccharum,Acer saccharum Marsh.,ACER.SAH,ERS,Sugar maple
+1402,Black maple,,Acer nigrum Michx.,NA,ERN,NA
+1403,Bigleaf maple,Acer macrophyllum,Acer macrophyllum Pursh,ACER.MAC,NA,NA
+1404,Manitoba maple,,Acer negundo L.,NA,ERG,NA
+1405,Red maple,Acer rubrum,Acer rubrum L.,ACER.RUB,ERR,Red Maple
+1406,Silver maple,,Acer saccharinum L.,NA,ERA,NA
+1407,Norway maple **,,Acer platanoides L.,NA,NA,NA
+1408,Sugar and black maple,,Acer saccharum Marsh. and Acer nigrum Michx.,NA,NA,NA
+1409,Other maple,,NA,NA,NA,NA
+1410,Striped maple,,Acer pensylvanicum L.,NA,ERP,NA
+1411,Mountain maple,,Acer spicatum Lamb.,NA,ERE,NA
+1500,Other hardwoods/other broadleaf species,,NA,NA,NA,NA
+1550,Unspecified hardwood species,,NA,NA,NA,NA
+1600,Hickory,,Carya,NA,NA,NA
+1601,Bitternut hickory,,Carya cordiformis (Wangenh.) K. Koch,NA,CAC,NA
+1602,Red hickory (Pignut hickory) ##,,Carya glabra (Mill.) Sweet var. odorata (Marsh.) Little,NA,NA,NA
+1603,Shagbark hickory,,Carya ovata (Mill.) K. Koch,NA,CAF,NA
+1604,Shellbark hickory ##,,Carya laciniosa Michx. f.,NA,NA,NA
+1700,Walnut,,NA,NA,NA,NA
+1701,Butternut,,Juglans cinerea L.,NA,NOC,NA
+1702,Black walnut,,Juglans nigra L.,NA,NA,NA
+1800,Alder,,Alnus,NA,AUC,NA
+1800,Alder,,Alnus,NA,AUR,NA
+1801,Sitka alder,,Alnus viridis  ssp. sinuata (Regel) ﾵ. Lﾔve & D. Lﾔve,NA,NA,NA
+1802,Red alder,Alnus rubra,Alnus rubra Bong.,ALNU.RUB,NA,NA
+1900,Ironwood (hop-hornbeam),,Ostrya virginiana (Mill.) K. Koch,NA,OSV,NA
+1950,Blue-beech (American hornbeam),,Carpinus caroliniana Walt.,NA,CAR,NA
+2000,American beech,Fagus grandifolia,Fagus grandifolia Ehrh.,FAGU.GRA,HEG,American beech
+2100,Oak,,Quercus,NA,NA,NA
+2101,White oak,,Quercus alba L.,NA,CHB,NA
+2102,Swamp white oak,,Quercus bicolor Willd.,NA,CHE,NA
+2103,Garry oak,,Quercus garryana Dougl.,NA,NA,NA
+2104,Bur oak,,Quercus macrocarpa Michx.,NA,CHG,NA
+2105,Pin oak #,,Quercus palustris Muenchh.,NA,NA,NA
+2106,Chinquapin oak #,,Quercus muehlenbergii Engelm.,NA,NA,NA
+2107,Chestnut oak *,,Quercus montana Willd.,NA,NA,NA
+2108,Red oak,Quercus rubra,Quercus rubra L.,QUER.RUB,CHR,Red oak
+2109,Black oak,,Quercus velutina Lam.,NA,NA,NA
+2110,Northern pin oak #,,Quercus ellipsoidelis E.J. Hill,NA,NA,NA
+2111,Shumard oak ##,,Quercus shumardii Buckl.,NA,NA,NA
+2200,Elm,,Ulmus,NA,NA,NA
+2201,White elm,,Ulmus americana L.,NA,ORA,NA
+2202,Slippery elm,,Ulmus rubra Muhl.,NA,ORR,NA
+2203,Rock elm ##,,Ulmus thomasii Sarg.,NA,ORT,NA
+2300,Red mulberry ##,,Morus rubra L.,NA,NA,NA
+2400,Tulip-tree,,Liriodendron tulipifera L.,NA,NA,NA
+2500,Cucumber-tree,,Magnolia acuminata L.,NA,NA,NA
+2600,Sassafras,,Sassafras albidum (Nutt.) Nees,NA,NA,NA
+2700,Sycamore,,Platanus occidentalis L.,NA,NA,NA
+2800,Cherry,,Prunus,NA,NA,NA
+2801,Black cherry,,Prunus serotina Ehrh.,NA,CET,NA
+2802,Pin cherry,,Prunus pensylvanica L. f.,NA,PRP,NA
+2803,Bitter cherry,,Prunus emarginata Dougl.,NA,NA,NA
+2804,Choke cherry,,Prunus virginiana L. var. virginiana,NA,PRV,NA
+2900,Honey-locust ##,,Gleditsia triacanthos L.,NA,NA,NA
+3000,Basswood,,Tilia americana L.,NA,TIL,NA
+3100,Black-gum ##,,Nyssa sylvatica Marsh.,NA,NA,NA
+3200,Flowering dogwood,,Cornus,NA,NA,NA
+3201,Eastern flowering dogwood,,Cornus florida L.,NA,NA,NA
+3202,Western flowering dogwood,,Cornus nuttallii Audubon,NA,NA,NA
+3203,Alternate-leaf dogwood,,Cornus alternifolia L. f.,NA,NA,NA
+3300,Arbutus,,Arbutus menziesii Pursh,NA,NA,NA
+3400,Ash,,Fraxinus spp,NA,NA,NA
+3401,White ash,Fraxinus americana,Fraxinus americana L.,FRAX.AME,FRA,NA
+3402,Black ash,Fraxinus nigra,Fraxinus nigra Marsh.,FRAX.NIG,FRN,NA
+3403,Red ash,,Fraxinus pennsylvanica Marsh.,NA,NA,NA
+3404,Northern red ash,,Fraxinus pennsylvanica var. austini Fern.,NA,NA,NA
+3405,Green ash,,Fraxinus pennsylvanica var. subintegerrima (Vahl) Fern.,NA,FRP,NA
+3406,Blue ash,,Fraxinus quadrangulata Michx.,NA,NA,NA
+3407,Oregon ash,,Fraxinus latifolia Benth.,NA,NA,NA
+3408,Pumpkin ash ##,,Fraxinus profunda (Bush) Bush,NA,NA,NA
+3500,Willow,,Salix,NA,SAL,NA
+3501,Black willow,,Salix nigra Marsh.,NA,NA,NA
+3502,Peachleaf willow,,Salix amygdaloides Andersson,NA,NA,NA
+3503,Pacific willow,,Salix lucida ssp. lasiandra (Benth.) E. Murr.,NA,NA,NA
+3504,Crack willow **,,Salix fragilis L.,NA,NA,NA
+3505,Shining willow,,Salix lucida Muhl. ssp. lucida,NA,NA,NA
+3600,Kentucky coffee tree,,Gymnocladus dioicus (L.) K. Koch,NA,NA,NA
+3700,Hackberry,,Celtis occidentalis L.,NA,CEO,NA
+3800,Serviceberry,,Amelanchier genus,NA,AME,NA
+3900,Beaked hazel,,Corylus cornuta Marsh.,NA,NA,NA
+3910,Hawthorn,,Crataegus genus,NA,CRA,NA
+3920,Common winterberry (black-alder),,Ilex verticillata (L.) A. Gray,NA,NA,NA
+3930,Apple,,Malus genus,NA,MAS,NA
+3940,Mountain-holly,,Nemopanthus mucronatus (L.) Trel.,NA,NA,NA
+3950,Staghorn sumac,,Rhus typhina L.,NA,NA,NA
+3960,Mountain-ash,,Sorbus genus,NA,SOA,NA
+3960,Mountain-ash,,Sorbus genus,NA,SOD,NA
+4000,Tolerant hardwoods,,"Shade tolerant species such as beech, sugar maple, and yellow birch",NA,NA,NA
+5000,Intolerant hardwoods,,Shade intolerant species such as trembling aspen and white birch,NA,NA,NA
+NA,NA,,and Pinus contorta var. contorta,NA,NA,NA
+NA,NA,,and Abies grandis (Dougl. ex D. Don) Lindl.,NA,NA,NA
+NA,Rocky Mountain Douglas-fir,,and Pseudotsuga menziesii var. glauca (Beissn.) Franco,NA,NA,NA

@@ -1,0 +1,80 @@
+LandisData "BDA Agent"
+
+BDAAgentName		budworm
+BDPCalibrator		1
+SRDMode			mean
+>>StartYear 50
+>>EndYear   100
+
+>>----------------------------------
+>> BDA DISTURBANE REGIME PARAMETERS
+>>----------------------------------
+
+>>-------- Regional Outbreak Inputs -------------
+OutbreakPattern		CyclicUniform	<<CyclicNormal or CyclicUniform
+MaxInterval			32
+MinInterval			32
+TimeSinceLastEpidemic	20		<<years
+TemporalType 		pulse	<<pulse or variablepulse
+MinROS			0
+MaxROS			3
+
+>>-------- Dispersal Inputs ----------------------
+Dispersal		no		<<yes or no
+DispersalRate		50000		<<meters/year
+EpidemicThresh		0.5
+InitialEpicenterNum	5
+OutbreakEpicenterCoeff	0.01
+OutbreakEpicenterThresh 0.0
+SeedEpicenter		yes		<<yes or no
+SeedEpicenterCoeff	10
+DispersalTemplate	MaxRadius	<<MaxRadius, 4N,
+					<<8N, 12N, or 24N
+
+>>-------- Neighborhood Resource Inputs -----------
+NeighborFlag	yes			<<yes or no
+NeighborSpeedUp none			<<none, 2x, 3x, or 4x
+NeighborRadius	1000			<<meters
+NeighborShape	uniform			<<uniform, linear, or gaussian
+NeighborWeight	0.5
+
+>>-- Intensity Class Thresholds --
+>>IntensityClass1_BDP 	0.0 -- Hardwired value
+IntensityClass2_BDP 	0.33
+IntensityClass3_BDP		0.67
+
+>>Ecoregion Modifiers
+
+>> DisturbanceModifiers
+>> >>SRD Modifer	Duration	Type
+
+
+>>-------------------------
+>> BDA SEVERITY PARAMETERS
+>>--------------------------
+
+BDASpeciesParameters
+>>         -------------Host Value--------------  -------------Susceptibility-------------
+>>Species  MinorHost    2ndHost      MajorHost    Class3        Class2        Class1	    CFS
+>>Name     Age SRDProb  Age SRDProb  Age SRDProb  Age VulnProb  Age VulnProb  Age VulnProb  Conifer?
+>> ---------------------------------------------------------------------------------------------
+ABIE.BAL 0 0.25 20 0.5 40 1 0 0 20 0.42 50 0.85 yes
+PICE.GLA 0 0.18 20 0.36 40 0.72 0 0 20 0.15 50 0.42 yes
+PICE.RUB 0 0.1 20 0.2 40 0.41 20 0.13 50 0.36 999 1 yes
+PICE.MAR 0 0.07 20 0.14 40 0.28 20 0.13 50 0.36 999 1 yes
+
+>>IgnoredSpecies
+>>ACER.RUB
+>>ACER.SAH
+>>BETU.ALL
+>>BETU.PAP
+>>FAGU.GRA
+>>LARI.LAR
+>>PINU.BAN
+>>PINU.RES
+>>PINU.STR
+>>POPU.TRE
+>>QUER.RUB
+>>THUJ.SPP.ALL
+>>TSUG.CAN
+

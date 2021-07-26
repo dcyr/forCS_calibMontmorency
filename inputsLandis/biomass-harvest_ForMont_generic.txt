@@ -1,0 +1,68 @@
+LandisData "Biomass Harvest" 
+Timestep  1 
+
+ManagementAreas mgmt-areas.tif
+Stands stand-map.tif 
+
+Prescription CPRS 
+StandRanking Random
+MinimumAge 50 
+SiteSelection CompleteStandSpread 1  10 
+CohortsRemoved SpeciesList 
+ABIE.BAL 11-20(33%) 21-999
+ACER.RUB 11-999
+ACER.SAH 11-999
+BETU.ALL 11-999
+BETU.PAP 11-999
+FAGU.GRA 11-999
+LARI.LAR 11-999
+PICE.GLA 11-999
+PICE.MAR 11-999
+PICE.RUB 11-999
+PINU.BAN 11-999
+PINU.RES 11-999
+PINU.STR 11-999
+POPU.TRE 11-999
+QUER.RUB 11-999
+THUJ.SPP.ALL 11-999
+TSUG.CAN 11-999
+
+Prescription CP 
+StandRanking Random 
+MinimumAge 30
+SiteSelection CompleteStandSpread 1  25 
+CohortsRemoved SpeciesList 
+ABIE.BAL 11-999(33%)
+ACER.RUB 11-999(33%)
+ACER.SAH 11-999(33%)
+BETU.ALL 11-999(33%)
+BETU.PAP 11-999(33%)
+FAGU.GRA 11-999(33%)
+LARI.LAR 11-999(33%)
+PICE.GLA 11-999(33%)
+PICE.MAR 11-999(33%)
+PICE.RUB 11-999(33%)
+PINU.BAN 11-999(33%)
+PINU.RES 11-999(33%)
+PINU.STR 11-999(33%)
+POPU.TRE 11-999(33%)
+QUER.RUB 11-999(33%)
+THUJ.SPP.ALL 11-999(33%)
+TSUG.CAN 11-999(33%)
+
+
+
+HarvestImplementations 
+20000 CPRS 1%
+20000 CP 1%
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+>>>> Output files
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+PrescriptionMaps harvest/prescripts-{timestep}.tif
+BiomassMaps harvest/biomass-removed-{timestep}.tif
+EventLog harvest/log.csv
+SummaryLog harvest/summarylog.csv
+>>>>>>>>>>>>>>>>>>>>
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 
