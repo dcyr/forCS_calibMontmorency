@@ -23,6 +23,7 @@ timestep <- 1
 simDuration <- 1000
 simArea <- "ForMont"
 harvest <- "biomass"
+plant <- TRUE
 #inputs <- list.files(inputDir)
 
 
@@ -267,18 +268,37 @@ for (i in 1:nrow(simInfo)) {
     
     index <- grep("HarvestImplementations|PrescriptionMaps", x)
     
-    
-    
-    
+
     harvImpl <- data.frame(MgmtArea = values(r),
                            Prescription = names(prescript),
                            HarvestArea = "100%",
                            BeginTime = prescript[[1]],
                            EndTime = prescript[[1]])
     
+    
+    
+    
+    prescriptBlock <- x[1:index[1]]
+    
+    
+    if(plant) {### currently work when there's only one prescription where to include planting
+        prescriptIndex <- which(trimws(prescriptBlock) == paste("Prescription", names(prescript)))
+        
+        gaps <- which(nchar(prescriptBlock)==0)
+        
+        gapIndex <- min(gaps[gaps>prescriptIndex])
+        
+        ## insert planting instruction
+        prescriptBlockNew <- prescriptBlock[1:gapIndex-1]  
+        prescriptBlockNew <-c(prescriptBlockNew, paste(c("Plant", spp), collapse = " "))
+        
+        prescriptBlock <- c(prescriptBlockNew, prescriptBlock[gapIndex:length(prescriptBlock)])  
+            
+    }  
+    
     sink(file = fName)
     
-    cat(paste(x[1:index[1]], collapse = "\n"))
+    cat(paste(prescriptBlock, collapse = "\n"))
     
     cat(paste("\n>>", paste(colnames(harvImpl), collapse = "\t"), "\n\n"))
     
@@ -292,10 +312,6 @@ for (i in 1:nrow(simInfo)) {
     
     sink()  
     
-    
-    
-    
-
     ###############################################
     ### scenario.txt
     
