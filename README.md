@@ -35,10 +35,7 @@ Based on previous published studies ([Simons-Legaard _et al._ 2015][11]) and sub
 
 -----------
 
-![](figures/cumulEmissions_ForMont_test_mix_CPRS.png)
-
-![](figures/cumulEmissions_ForMont_test_mix_CP.png)  
-
+![](figures/cumulEmissions_ForMont_test_mix.png)
 
 -----------
 
@@ -50,12 +47,9 @@ Based on previous published studies ([Simons-Legaard _et al._ 2015][11]) and sub
 
 
 
-![](figures/fluxes_Summary_ForMont_test_mix_CPRS.png)
+![](figures/fluxes_Summary_ForMont_test_mix.png)
 
 
-![](figures/fluxes_Summary_ForMont_test_mix_CP.png)
-
-
-
+![](figures/pools_Summary_ForMont_test_mix.png)
 
 
