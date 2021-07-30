@@ -59,6 +59,103 @@ for(initC in unique(dfPools$initComm)) {
   
   p <- ggplot(df, aes(x = Time, y = C_gPerSqM*unitConvFact,
                       colour = variable, fill = variable)) +
+    #theme_dark() +
+    facet_grid(treatment ~ growthShape) +
+    geom_ribbon(aes(x = Time, y = NULL, colour = NULL,
+                    ymin = p05*unitConvFact, ymax = p95*unitConvFact),
+                alpha = 0.25) +
+    geom_ribbon(aes(x = Time, y = NULL, colour = NULL,
+                    ymin = p25*unitConvFact, ymax = p75*unitConvFact),
+                alpha = 0.5) +
+    geom_line(aes(x = Time, y = p50*unitConvFact),
+              size  = 0.5, alpha = 1) +
+    scale_colour_manual(name = "Carbon pool",
+                        values = c("darkgreen","chocolate2", "coral4" )) +
+    scale_fill_manual(name = "Carbon pool",
+                      values = c("darkgreen","chocolate2", "coral4" )) +
+    theme(plot.caption = element_text(size = rel(.75), hjust = 0),
+          plot.subtitle = element_text(size = rel(.75))) +
+    labs(title = paste0("Summary of aggregated pools\nSpecies: ", initC),
+         subtitle = paste0("Single-cell simulations - ", nSims, " replicates",
+                           "\nMedians are represented with black lines",
+                           "\n90% of values are comprised within lightly shaded areas",
+                           "\n50% of values are comprised within darkly shaded areas."),
+         x = "",
+         y = expression(paste("tonnes C"," ha"^"-1","\n")),
+         caption = paste0("ABio : Aboveground biomass stocks",
+                          "\nBBio : Belowground (root) biomass stocks",
+                          "\nTotalDOM : Total dead organic matter and soil stocks (DOM + SOM)"))
+  
+  fName <- paste0("pools_Summary_", simName, "_", initC, ".png")
+  
+  png(filename= fName,
+      width = 10, height = 6, units = "in", res = 600, pointsize=10)
+  
+  print(p)
+  
+  dev.off()
+}
+
+
+
+for(initC in unique(dfPools$initComm)) {
+  
+  df <- dfPoolsPercentiles %>%
+    filter(initComm == initC,
+           variable == "ABio",
+           Time <= 180,
+           treatment == "CPRS",
+           growthShape %in% c(0.1, 0.3, 0.5, 0.7, 0.9)) %>%
+    mutate(growthShape = factor(paste("growthShape =", growthShape))) %>%
+    group_by(growthShape, Time) %>%
+    summarise(p50 = mean(p50),
+              meanVal = mean(meanVal))
+  
+  p <- ggplot(df, aes(x = Time, y = C_gPerSqM*unitConvFact,
+                      linetype = growthShape)) +
+    #theme_dark() +
+    geom_line(aes(x = Time, y = meanVal*unitConvFact),
+              size  = 0.5, alpha = 1,
+              colour = "darkgreen") +
+    geom_vline(xintercept = 149.5, colour = "grey25", linetype = 2, size = 1) +
+    theme(plot.caption = element_text(size = rel(.75), hjust = 0),
+          plot.subtitle = element_text(size = rel(.75))) +
+    geom_text(label = "CPRS",
+              x = 149.5, y = max(df$meanVal)*unitConvFact,
+              angle = 270, vjust = -0.5, hjust = 0,
+              colour = "grey25") +
+    labs(title = paste0("Evolution of aboveground biomass stocks\nSpecies: ", initC),
+         subtitle = paste0("Single-cell simulations - ", nSims, " replicates",
+                           "\nLines represent average values values"),
+         x = "",
+         y = expression(paste("tonnes C"," ha"^"-1","\n")))
+  
+  fName <- paste0("AGB_Summary_", simName, "_", initC, ".png")
+  
+  png(filename= fName,
+      width = 10, height = 6, units = "in", res = 600, pointsize=10)
+  
+  print(p)
+  
+  dev.off()
+}
+
+
+
+
+
+
+for(initC in unique(dfPools$initComm)) {
+  
+  df <- dfPoolsPercentiles %>%
+    filter(initComm == initC,
+           variable == "Abio",
+           Time <= 150,
+           growthShape %in% c(0.1, 0.3, 0.5, 0.7, 0.9)) %>%
+    mutate(growthShape = factor(paste("growthShape =", growthShape)))
+  
+  p <- ggplot(df, aes(x = Time, y = C_gPerSqM*unitConvFact,
+                      colour = treatment, fill = treatment)) +
     theme_dark() +
     facet_grid(treatment ~ growthShape) +
     geom_ribbon(aes(x = Time, y = NULL, colour = NULL,
@@ -97,6 +194,7 @@ for(initC in unique(dfPools$initComm)) {
 }
 
 
+
 ###################################################################
 ### Fluxes cell - level
 
@@ -106,7 +204,6 @@ log_Summary <- get(load(paste0("../outputCompiled/log_Summary_",
 dfFluxes <- log_Summary %>%
   filter(variable %in% c("Turnover",  "NetGrowth", "NPP",
                            "Rh", "NEP")) 
-
 
 dfFluxesPercentiles <- dfFluxes %>%
     group_by(areaName, treatment,

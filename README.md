@@ -8,7 +8,7 @@ output:
 
 Repository maintained by Dominic Cyr
 
-Updated on Jul 29 2021
+Updated on Jul 30 2021
 
 -------
 
@@ -33,11 +33,21 @@ Based on previous published studies ([Simons-Legaard _et al._ 2015][11]) and sub
 [01]: http://dx.doi.org/10.1016/j.ecolmodel.2015.06.033 
 
 
+-----------
+
 ![](figures/cumulEmissions_ForMont_test_mix_CPRS.png)
 
 ![](figures/cumulEmissions_ForMont_test_mix_CP.png)  
 
+
 -----------
+
+
+![](figures/AGB_Summary_ForMont_test_mix.png)
+
+
+-----------
+
 
 
 ![](figures/fluxes_Summary_ForMont_test_mix_CPRS.png)
@@ -45,7 +55,7 @@ Based on previous published studies ([Simons-Legaard _et al._ 2015][11]) and sub
 
 ![](figures/fluxes_Summary_ForMont_test_mix_CP.png)
 
-![](figures/pools_Summary_ForMont_test_mix.png)
+
 
 
 
