@@ -47,7 +47,15 @@ dfPoolsPercentiles <- dfPools %>%
               meanVal = mean(C_gPerSqM),
               maxVal = max(C_gPerSqM),
               minVal = min(C_gPerSqM))
-
+### write to file for calibration purposes
+df <- dfPoolsPercentiles %>%
+  filter(treatment == "CPRS",
+         variable == "ABio",
+         initComm %in% c("ABIE.BAL", "PICE.GLA")) %>%
+  arrange(initComm, growthShape, Time) %>%
+  select(areaName, initComm, growthShape, Time, variable, meanVal)
+         
+write.csv(df, file = paste0("AGbio_output_", simName, ".csv"), row.names = F)
 
 
 for(initC in unique(dfPools$initComm)) {
