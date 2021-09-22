@@ -9,7 +9,7 @@ StandRanking Random
 MinimumAge 50 
 SiteSelection CompleteStandSpread 1  10 
 CohortsRemoved SpeciesList 
-ABIE.BAL 11-20(33%) 21-999
+ABIE.BAL 11-999
 ACER.RUB 11-999
 ACER.SAH 11-999
 BETU.ALL 11-999

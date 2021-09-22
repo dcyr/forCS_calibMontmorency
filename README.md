@@ -8,7 +8,7 @@ output:
 
 Repository maintained by Dominic Cyr
 
-Updated on Jul 30 2021
+Updated on sept. 22 2021
 
 -------
 
@@ -30,26 +30,26 @@ This repository contains input files, scripts, documentation and compiled simula
 Based on previous published studies ([Simons-Legaard _et al._ 2015][11]) and submitted manuscript (Landry _et al._ subm to _Forest Ecol Manag_ and Moreau et al. _in prep_) we identified LANDIS-II species-specific growth shape parameter as an important driver of stand development that has a major influence on carbon dynamics. Here are examples of how this parameter can influence stand-level carbon dynamics over time in Forêt Montmorency.
 
 
-[01]: http://dx.doi.org/10.1016/j.ecolmodel.2015.06.033 
+[11]: http://dx.doi.org/10.1016/j.ecolmodel.2015.06.033 
 
 
 -----------
 
-![](figures/cumulEmissions_ForMont_test_mix.png)
+![](figures/cumulEmissions_ForMont_test-entireRange_ABIE.BAL.png)
 
 -----------
 
 
-![](figures/AGB_Summary_ForMont_test_mix.png)
+![](figures/AGB_Summary_ForMont_test-entireRange_PICE.GLA.png)
 
 
 -----------
 
 
 
-![](figures/fluxes_Summary_ForMont_test_mix.png)
+![](figures/fluxes_Summary_ForMont_test-entireRange_PICE.GLA.png)
 
 
-![](figures/pools_Summary_ForMont_test_mix.png)
+![](figures/pools_Summary_ForMont_test-entireRange_ABIE.BAL.png)
 
 

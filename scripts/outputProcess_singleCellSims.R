@@ -17,7 +17,7 @@ source("../scripts/fetchHarvestImplementationFnc.R")
 unitConvFact <- 0.01 ### from gC /m2 to tonnes per ha
 #####
 
-simDir <- "D:/ForMont_test"
+simDir <- "D:/ForMont_test-entireRange-noRecruitment/"
 simName <- basename(simDir)
 
 
@@ -28,7 +28,7 @@ s <- simDir
 simInfo <- read.csv(paste(s, "simInfo.csv", sep ="/"),
                     colClasses = c(simID = "character"))
 
-clusterN <- 6 ### seems optimal for 
+clusterN <- 6 ### seems optimal for hi I/O demand
 ###################################################################
 
  
