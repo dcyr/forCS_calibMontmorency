@@ -6,7 +6,8 @@ setwd(wwd)
 
 
 
-simDir <- c("D:/ForCS - test_3.1_biomass-harvest_singleCell")
+simDir <- c("D:/ForMont_test-entireRange/",
+            "D:/ForMont_test-entireRange-noRecruitment/")
 
 for (s in simDir) {
     sOut <- basename(s)
