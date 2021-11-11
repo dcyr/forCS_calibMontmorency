@@ -17,7 +17,7 @@ source("../scripts/fetchHarvestImplementationFnc.R")
 unitConvFact <- 0.01 ### from gC /m2 to tonnes per ha
 #####
 
-simDir <- "D:/ForMont_test-entireRange-noRecruitment/"
+simDir <- "D:/ForMont_gs-ms//"
 simName <- basename(simDir)
 
 
@@ -47,6 +47,7 @@ log_BiomassC <- foreach(i = 1:nrow(simInfo), .combine = "rbind") %dopar% {
     landtype <- simInfo$landtypes[i]
     treatment <- simInfo$treatment[i]
     growthShape <- simInfo$growthShape[i]
+    mortalityShape <- simInfo$mortalityShape[i]
     initComm <- simInfo$initComm[i]
     replicate <- simInfo$replicate[i]
     x <- read.csv(paste(sDir, "log_BiomassC.csv", sep = "/"))
@@ -58,6 +59,7 @@ log_BiomassC <- foreach(i = 1:nrow(simInfo), .combine = "rbind") %dopar% {
                     initComm = initComm,
                     landtype = landtype,
                     growthShape = growthShape,
+                    mortalityShape = mortalityShape,
                     replicate = replicate,
                     x)
     print(i)
@@ -91,6 +93,7 @@ log_Pools <- foreach(i = 1:nrow(simInfo), .combine="rbind") %dopar% {
     landtype <- simInfo$landtypes[i]
     treatment <- simInfo$treatment[i]
     growthShape <- simInfo$growthShape[i]
+    mortalityShape <- simInfo$mortalityShape[i]
     initComm <- simInfo$initComm[i]
     replicate <- simInfo$replicate[i]
 
@@ -105,6 +108,7 @@ log_Pools <- foreach(i = 1:nrow(simInfo), .combine="rbind") %dopar% {
                     initComm = initComm,
                     landtype = landtype,
                     growthShape = growthShape,
+                    mortalityShape = mortalityShape,
                     replicate = replicate,
                     x)
     print(i)
@@ -137,6 +141,7 @@ log_Summary <- foreach(i = 1:nrow(simInfo), .combine="rbind") %dopar% {
     landtype <- simInfo$landtypes[i]
     treatment <- simInfo$treatment[i]
     growthShape <- simInfo$growthShape[i]
+    mortalityShape <- simInfo$mortalityShape[i]
     initComm <- simInfo$initComm[i]
     replicate <- simInfo$replicate[i]
 
@@ -151,6 +156,7 @@ log_Summary <- foreach(i = 1:nrow(simInfo), .combine="rbind") %dopar% {
                     initComm = initComm,
                     landtype = landtype,
                     growthShape = growthShape,
+                    mortalityShape = mortalityShape,
                     replicate = replicate,
                     x)
     print(i)

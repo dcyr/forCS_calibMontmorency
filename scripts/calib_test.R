@@ -1,4 +1,6 @@
-wwd <- "C:/Users/cyrdo/Sync/Travail/ECCC/Landis-II/Montmorency_calib"
+wwd <- ifelse(Sys.info()["sysname"] == "Linux",
+              paste(home, "Sync/Travail/ECCC/Landis-II/Montmorency_calib/", sep = "/"),
+              "C:/Users/dcyr-z840/Sync/Travail/ECCC/Landis-II/Montmorency_calib/")
 wwd <- paste(wwd, Sys.Date(), sep= "/")
 dir.create(wwd)
 setwd(wwd)
@@ -6,8 +8,7 @@ require(ggplot2)
 require(tidyverse)
 
 
-for (s in c("ForMont_test-entireRange",
-            "ForMont_test-entireRange-noRecruitment")) {
+for (s in c("ForMont_gs-ms")) {
     outLandis <- read.csv(paste0("../outputCompiled/AGbio_output_",s,".csv"))
     out3PG <-  read.csv("../2021-08-02/Biomass_test.csv", sep = ";")
     
@@ -26,7 +27,7 @@ for (s in c("ForMont_test-entireRange",
                ABio_C_TonnesPerHa = Stem_DM_TonneHa *.5,
                treatment = Traitement,
                initComm = ifelse(Essence == "SAB", "ABIE.BAL", "PICE.GLA")) %>%
-        filter(treatment == "Témoin") %>%
+        filter(treatment == "T?moin") %>%
         group_by(initComm) %>%
         mutate(maxVal = max(ABio_C_TonnesPerHa),
                minVal = min(ABio_C_TonnesPerHa),

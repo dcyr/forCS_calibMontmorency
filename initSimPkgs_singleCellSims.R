@@ -61,7 +61,7 @@ speciesList <- list(ABIE.BAL = "ABIE.BAL 1",#,
 timestep <- 1
 expDesign <- list(area = simArea,
                   #landtypes = c("221"),#
-                  landtypes = c("220","221", "222", "223"),
+                  landtypes = c("221"),
                   #landtypes = c("425_1", "425_2", "425_3", "425_4", "425_5"), ## Papineau
                   treatment = list("CPRS" = seq(from = 150, to = 450, by = 100),#,
                                    "CP" = seq(from = 150, to = 480, by = 35)),
@@ -71,8 +71,10 @@ expDesign <- list(area = simArea,
 simInfo <- expand.grid(areaName = expDesign$area,
                        landtypes = expDesign$landtypes,
                        treatment = names(expDesign$treatment),
-                       growthShape =  c(0.1, 0.25, 0.5, 0.75, 0.8, 0.85, 0.875,
-                                        seq(from = 0.9, to = 1, by = 0.01)),
+                       growthShape = c(0.25, 0.5, 0.75,
+                                       seq(from = 0.9, to = 0.95, by = 0.025),
+                                       seq(from = 0.95, to = 1, by = 0.01)),
+                       mortalityShape =  seq(from = 5, to = 25, by = 2),
                        initComm = names(speciesList),
                        replicate = 1:expDesign$nrep,
                        noRecruitment = noRecruitment)
@@ -108,7 +110,8 @@ for (i in 1:nrow(simInfo)) {
     areaName <- as.character(simInfo[i,"areaName"])
     replicate <- as.character(simInfo[i,"replicate"])
     initComm <- speciesList[[as.character(simInfo[i,"initComm"])]]
-    gs <- simInfo[i,"growthShape"]  
+    gs <- simInfo[i,"growthShape"] 
+    ms <- simInfo[i,"mortalityShape"] 
     
     prescript <- expDesign$treatment[simInfo[i, "treatment"]]
     
@@ -211,8 +214,7 @@ for (i in 1:nrow(simInfo)) {
     unlink("tmp.txt")
     sppIndex <- which(tmp[,1] %in% spp) 
     tmp[sppIndex, 8] <- gs
-    unlink
-    
+    tmp[sppIndex, 3] <- ms
     
     
     ##### writing to file
