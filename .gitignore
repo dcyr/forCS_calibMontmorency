@@ -1,0 +1,17 @@
+.Rhistory
+[0-9]*
+temp
+tmp
+gis
+*.Rmd
+*.html
+*~
+*.rds
+*.html
+wc*
+*old
+notes
+docs
+*offline
+*summaryPercentiles*
+outputCompiled
