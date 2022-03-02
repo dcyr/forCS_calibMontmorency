@@ -177,16 +177,6 @@ initForCS <- function(forCSInput, ### a formatted Forest Carbon Succession input
       
     }
     
-    ##########################################################################
-    ##########################################################################
-    #### update groweth shape parameters
-    if(as.numeric(version) >= 3.1) {
-      forCS$SpeciesParameters$table[,8] <-0.9
-    }
-    ##########################################################################
-    
-    
-   
     ############################################################################
     ### Dompools - "Proportion of the decayed material that goes to the atmosphere'
     print("Preparing / updating 'Dompools'")

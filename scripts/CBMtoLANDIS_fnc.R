@@ -438,6 +438,7 @@ SpeciesParameterFetch <- function(bsMain,
     out[,4:6] <- NA 
     
     
+    
     url <- paste(aidbURL, "tblSpeciesTypeDefault.txt", sep="/")
     if(strsplit(url, "/")[[1]][1] %in% c("https:", "http:")) {
       ### Proportion of Non-merch to FastAG - BranchesToBranchSnag
@@ -455,6 +456,10 @@ SpeciesParameterFetch <- function(bsMain,
     ### BranchesToBranchSnag
     out[,7]  <- bioNonMerchSpecies[index, "BranchesToBranchSnag"]
     sppID <- bioNonMerchSpecies[index,"SpeciesTypeID"]
+    
+    
+    ### growth shape parameter
+    out[,8] <- bsInputs[,5]
     
     # ### growth shape param (to be tested)
     # out[,8] <- bsInputs[,5]

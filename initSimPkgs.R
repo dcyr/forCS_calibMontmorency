@@ -38,7 +38,7 @@ expDesign <- list(area = c("ForMont"),#"ForMont", ),#", "Hereford"
                               #             "noHarvest")),
                               #Maskinonge = c("noHarvest", "baseline")
                   #c("noHarvest", "baseline")
-                  spinup = F,
+                  spinup = T,
                   cropped  = list(Hereford = F,
                                 ForMont = T,
                                 Maskinonge = F),

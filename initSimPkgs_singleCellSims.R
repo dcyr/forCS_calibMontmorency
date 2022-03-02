@@ -47,12 +47,35 @@ studyArea <- raster("../inputsLandis/studyArea_ForMont.tif")
 #                                   "POPU.TRE 1", "ABIE.BAL 1",
 #                                   "BETU.ALL 1", "BETU.PAP 1",
 #                                   "ACER.RUB 1"), collapse = "\n"))
+
+
 speciesList <- list(ABIE.BAL = "ABIE.BAL 1",#,
-                    PICE.GLA = "PICE.GLA 1")
-                    # mix = paste(c("ABIE.BAL 1", 
-                    #               "PICE.GLA 1",
-                    #               "BETU.PAP 1"),
-                                  # collapse = "\n")
+                    PICE.GLA = "PICE.GLA 1"
+                    # EBSB = paste(c("PICE.GLA 1",
+                    #                "ABIE.BAL 1"),
+                    #              collapse = "\n"),
+                    # EBEN = paste(c("PICE.GLA 1",
+                    #                "PICE.MAR 1"),
+                    #              collapse = "\n"),
+                    # EBSBBB = paste(c("PICE.GLA 1",
+                    #                  "ABIE.BAL 1",
+                    #                  "BETU.PAP 1"),
+                    #                collapse = "\n")
+                    )
+
+
+# speciesList <- list(ABIE.BAL = "ABIE.BAL 1",#,
+#                     PICE.GLA = "PICE.GLA 1",
+#                     EBSB = paste(c("PICE.GLA 1",
+#                                    "ABIE.BAL 1"),
+#                                  collapse = "\n"),
+#                     EBEN = paste(c("PICE.GLA 1",
+#                                    "PICE.MAR 1"),
+#                                  collapse = "\n"),
+#                     EBSBBB = paste(c("PICE.GLA 1",
+#                                      "ABIE.BAL 1",
+#                                      "BETU.PAP 1"),
+#                                    collapse = "\n"))
     #)
  
 

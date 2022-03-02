@@ -45,7 +45,7 @@ scenario <- "baseline"#c("baseline","RCP45", "RCP85")#,
 area <-  "ForMont"#c("Hereford", "ForMont")#"Maskinonge"
 t0 <- 2020
 version <- "3.1"
-spinup <- F
+spinup <- T
 climate <- T
 allometry = T
 
