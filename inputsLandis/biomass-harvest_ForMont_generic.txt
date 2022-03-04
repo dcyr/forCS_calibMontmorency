@@ -21,11 +21,11 @@ StandRanking Random
 MinimumAge 30
 SiteSelection CompleteStandSpread 1  25 
 CohortsRemoved SpeciesList 
-ABIE.BAL 11-999(33%)
-BETU.PAP 11-999(33%)
-PICE.GLA 11-999(33%)
-PICE.MAR 11-999(33%)
-POPU.TRE 11-999(33%)
+ABIE.BAL 21-999(33%)
+BETU.PAP 21-999(33%)
+PICE.GLA 21-999(33%)
+PICE.MAR 21-999(33%)
+POPU.TRE 21-999(33%)
 
 
 

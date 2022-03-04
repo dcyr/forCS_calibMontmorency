@@ -17,8 +17,8 @@ require(stringr)
 require(raster)
 require(tidyverse)
 
-#spinUp <- T
-
+##############################
+###
 inputDir <- "../inputsLandis/"
 timestep <- 1
 simDuration <- 1000
@@ -26,30 +26,19 @@ simArea <- "ForMont"
 harvest <- "biomass"
 plant <- TRUE
 noRecruitment <- F
-#inputs <- list.files(inputDir)
+nrep <- 10
 
-
-
+##############################
 ### loading landtypes
 landtypes <- raster(paste0(inputDir, "/landtypes_", simArea, ".tif"))
 landtype_AT <- read.table(paste0(inputDir, "/landtypes_", simArea, ".txt"),
                           comment.char = ">", skip = 1)
 studyArea <- raster("../inputsLandis/studyArea_ForMont.tif")
 
-
-# ### focus on studyArea
-# ltSA <- resample(landtypes, studyArea, "ngb")
-# ltSA[is.na(studyArea)] <- NA
-# table(values(ltSA))
-
-
-
 ##############################
-
-
-
-speciesList <- list(ABIE.BAL = "ABIE.BAL 1",#,
-                    PICE.GLA = "PICE.GLA 1",
+###
+speciesList <- list(SB = "ABIE.BAL 1",#,
+                    EB = "PICE.GLA 1",
                     EBSB = paste(c("PICE.GLA 1",
                                    "ABIE.BAL 1"),
                                  collapse = "\n"),
@@ -63,8 +52,8 @@ speciesList <- list(ABIE.BAL = "ABIE.BAL 1",#,
 
  
 
-
-
+##############################
+###
 timestep <- 1
 expDesign <- list(area = simArea,
                   #landtypes = c("221"),#
@@ -72,7 +61,7 @@ expDesign <- list(area = simArea,
                   treatment = list("CPRS" = seq(from = 150, to = 450, by = 100),#,
                                    "CP" = seq(from = 150, to = 480, by = 35)),
                                    
-                  nrep = 5)
+                  nrep = nrep)
 
 simInfo <- expand.grid(areaName = expDesign$area,
                        landtypes = expDesign$landtypes,
@@ -86,16 +75,12 @@ simInfo <- data.frame(simID = str_pad(sID, nchar(max(sID)),
                                       pad = "0"),
                       simInfo)
 
-# require(parallel)
-# require(doSNOW)
-# n <- floor(detectCores() * .25)
-# 
-# # #######
-# cl = makeCluster(n, outfile = "") ## 
-# registerDoSNOW(cl)
-#foreach(i = 1:nrow(simInfo)) %dopar% {
 
-for (i in 1:1) {#nrow(simInfo)) {
+################################################################################
+################################################################################
+#####
+#i <- 1
+for (i in 1:nrow(simInfo)) {
     require(stringr)
     require(raster)
     require(tidyverse)
@@ -112,9 +97,9 @@ for (i in 1:1) {#nrow(simInfo)) {
     areaName <- as.character(simInfo[i,"areaName"])
     replicate <- as.character(simInfo[i,"replicate"])
     initComm <- speciesList[[as.character(simInfo[i,"initComm"])]]
-    gs <- simInfo[i,"growthShape"] 
-    ms <- simInfo[i,"mortalityShape"] 
-    
+    # gs <- simInfo[i,"growthShape"] 
+    # ms <- simInfo[i,"mortalityShape"] 
+    # 
     prescript <- expDesign$treatment[simInfo[i, "treatment"]]
     
     
@@ -215,8 +200,8 @@ for (i in 1:1) {#nrow(simInfo)) {
     tmp <- read.table("tmp.txt")
     unlink("tmp.txt")
     sppIndex <- which(tmp[,1] %in% spp) 
-    tmp[sppIndex, 8] <- gs
-    tmp[sppIndex, 3] <- ms
+    # tmp[sppIndex, 8] <- gs
+    # tmp[sppIndex, 3] <- ms
     
     
     ##### writing to file
@@ -287,28 +272,6 @@ for (i in 1:1) {#nrow(simInfo)) {
         sink() 
     }
     
-    
-    
-    
-    
-   
-    
-    
-    # cat("\n")
-    # cat(">> How Frequently the four different output files should be printed.  (intervals in years)\n")
-    # cat(">> Output interval\n")
-    # cat(">>  Biomass\tDOM_Pools\tFluxes\tSummary\n")
-    # cat(">>  ----------------------------------------------------------------\n")
-    #
-    # cat(paste(c(rep(timestep, 4), "\n\n"), collapse = "\t"))
-    #
-    # cat(paste(x[index[2]:length(x)], collapse = "\n"))
-    # sink()
-    #
-    # file.copy(paste0(inputDir, "/ForC-succession_",
-    #                  areaName, ".txt"),
-    #           paste0(simID, "/ForC-succession.txt"),
-    #           overwrite = T)
     
     # Climate inputs
     file.copy(paste0(inputDir, "/forCS-climate_",
@@ -407,8 +370,12 @@ for (i in 1:1) {#nrow(simInfo)) {
 
 }
 
+
+##############################
 write.csv(simInfo, file = "simInfo.csv", row.names = F)
+##############################
 ### simPilot.R
 file.copy("../scripts/simPilot_singleCellSims.R",
           "simPilot.R",
           overwrite = T)
+
