@@ -509,7 +509,7 @@ EcoSppDOMParametersFetch <- function(sppNames, landtypeNames) {
                       landtype = landtypeNames,
                       poolID = rownames(df)) %>%
         merge(df) %>%
-        select(landtype, spp, poolID,
+        dplyr::select(landtype, spp, poolID,
                OrganicMatterDecayRate, amountAtT0,
                Q10) %>%
         arrange(spp, landtype, poolID)
@@ -561,7 +561,7 @@ ForCSProprotionsFetch <- function(landtypes,
         mutate(BiomassFine = NA, ## didn't find in AIDB, thus NA
                BiomassCoarse = NA, ## didn't find in AIDB, thus NA
                SlowAGtoSlowBG = as.numeric(tblSlowAGtoBGTransferRate)) %>%
-        select(BiomassFine,
+        dplyr::select(BiomassFine,
                BiomassCoarse,
                SlowAGtoSlowBG,
                SoftwoodStemSnagToDOM, # hardwood and softwood values are identical)

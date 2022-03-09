@@ -41,13 +41,15 @@ source(paste(scriptPath, "initForCS_fnc.R", sep = "/"), encoding = "Windows-1252
 ################################################################################
 landisInputs <- list.files(inputPathLandis)
 ### experiment specifics
-scenario <- "baseline"#c("baseline","RCP45", "RCP85")#, 
+scenario <- c("RCP45", "RCP85")#, 
 area <-  "ForMont"#c("Hereford", "ForMont")#"Maskinonge"
 t0 <- 2020
+inputOffset <- -20
 version <- "3.1"
-spinup <- T
+spinup <- F
 climate <- T
 allometry = T
+#interpolate
 
 ################################################################################
 # might want to create loops here, or a function
@@ -57,6 +59,7 @@ for(a in area) {
     ### fetch species.txt
     species <- landisInputs[grep("species", landisInputs)]
     species <- species[grep(a, species)]
+    species <- species[!grepl("Copy", species)]
     species <- read.table(paste(inputPathLandis, species, sep = "/"),
                           skip = 1, comment.char = ">")
     ### fetching landtypes

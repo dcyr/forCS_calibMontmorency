@@ -210,7 +210,7 @@ initForCS <- function(forCSInput, ### a formatted Forest Carbon Succession input
             arrange(spp, landtype, poolID) %>%
             mutate(amountAtT0 = ifelse(is.na(amountAtT0.y),
                                        0, amountAtT0.y)) %>%
-            select(landtype, spp, poolID,
+            dplyr::select(landtype, spp, poolID,
                    OrganicMatterDecayRate,
                    amountAtT0, Q10)
    
@@ -333,9 +333,13 @@ initForCS <- function(forCSInput, ### a formatted Forest Carbon Succession input
     #####
     print("Resetting update year based on an annual timestep...")
     tsCorr <- bsMain$Timestep-1
+    tsCorr <- tsCorr - inputOffset
     
+    # f <- function(x) {
+    #     return(max(0, as.numeric(x[1])-tsCorr))
+    # }
     f <- function(x) {
-        return(max(0, as.numeric(x[1])-tsCorr))
+      return(as.numeric(x[1])-tsCorr)
     }
     #### ANPPTimeSeries
     print("Preparing / updating 'ANPPTimeSeries'")
