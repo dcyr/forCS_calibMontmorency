@@ -17,7 +17,7 @@ source("../scripts/fetchHarvestImplementationFnc.R")
 unitConvFact <- 0.01 ### from gC /m2 to tonnes per ha
 #####
 
-simDir <- "D:/2022-03-03/"
+simDir <- "D:/ForMont_validation/"
 simName <- basename(simDir)
 
 
@@ -37,7 +37,9 @@ cl = makeCluster(clusterN, outfile = "") ##
 registerDoSNOW(cl)
 ################################################################################
 ### Biomass
+
 log_BiomassC <- foreach(i = 1:nrow(simInfo), .combine = "rbind") %dopar% {
+#for (i in 1:nrow(simInfo)) {
     require(data.table)
     require(dplyr)
 
@@ -52,7 +54,7 @@ log_BiomassC <- foreach(i = 1:nrow(simInfo), .combine = "rbind") %dopar% {
     replicate <- simInfo$replicate[i]
     x <- read.csv(paste(sDir, "log_BiomassC.csv", sep = "/"))
     x <- x %>%
-        select(Time, species, Age, Wood, Leaf, CrsRoot, FineRoot)
+        dplyr::select(Time, species, Age, Wood, Leaf, CrsRoot, FineRoot)
     x <- data.frame(simID = simID,
                     areaName = area,
                     treatment = treatment,
@@ -63,6 +65,7 @@ log_BiomassC <- foreach(i = 1:nrow(simInfo), .combine = "rbind") %dopar% {
                     replicate = replicate,
                     x)
     print(i)
+    #log_BiomassC[[i]] <- x
     return(x)
 }
 
@@ -99,7 +102,7 @@ log_Pools <- foreach(i = 1:nrow(simInfo), .combine="rbind") %dopar% {
 
     x <- read.csv(paste(sDir, "log_Pools.csv", sep = "/"))
     x <- x %>%
-        select(Time, species, VF_A, VF_B, Fast_A,
+        dplyr::select(Time, species, VF_A, VF_B, Fast_A,
                MED, Slow_A, Slow_B, Sng_Stem, Sng_Oth)
 
     x <- data.frame(simID = simID,
@@ -147,7 +150,7 @@ log_Summary <- foreach(i = 1:nrow(simInfo), .combine="rbind") %dopar% {
 
     x <- read.csv(paste(sDir, "log_Summary.csv", sep = "/"))
     x <- x %>%
-        select(Time, ABio, BBio, TotalDOM,
+        dplyr::select(Time, ABio, BBio, TotalDOM,
                DelBio, Turnover, NetGrowth,	NPP, Rh, NEP, NBP)
 
     x <- data.frame(simID = simID,
