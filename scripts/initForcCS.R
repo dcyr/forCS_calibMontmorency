@@ -44,12 +44,12 @@ landisInputs <- list.files(inputPathLandis)
 scenario <- c("RCP45", "RCP85")#, 
 area <-  "ForMont"#c("Hereford", "ForMont")#"Maskinonge"
 t0 <- 2020
-inputOffset <- -20
+inputOffset <- 0 
 version <- "3.1"
 spinup <- F
 climate <- T
 allometry = T
-#interpolate
+interpolate = T
 
 ################################################################################
 # might want to create loops here, or a function
@@ -78,7 +78,7 @@ for(a in area) {
     
     landtypeNames <- landtypes_AT[which(landtypes_AT$V1 == "yes"), "V3"]
     
-    #s <- "baseline"
+    #s <- "RCP45"
     for(s in scenario) {
         
         ### fetching succession extensions inputs and template
@@ -96,7 +96,8 @@ for(a in area) {
                   climate = climate,
                   allometry = allometry,
                   t0 = t0,
-                  scenario = s)
-   }
+                  scenario = s,
+                  interpolate = interpolate)
+    }
 }
 

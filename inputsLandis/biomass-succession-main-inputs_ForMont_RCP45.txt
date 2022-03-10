@@ -51,4 +51,3 @@ AgeOnlyDisturbances:BiomassParameters "C:\YAN\LANDIS\Landis-II\AODist.txt"
 
 
 >> growth shape and mortality parameters changés pour toutes les espèces selon Landry et al.
-

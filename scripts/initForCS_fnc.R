@@ -12,6 +12,8 @@ initForCS <- function(forCSInput, ### a formatted Forest Carbon Succession input
                       scenario,
                       t0,
                       allometry,
+                      inputOffset = 0,
+                      interpolate = F,
                       valuesSingleAll = c("Timestep", "SeedingAlgorithm", "ForCSClimateFile",
                                           "InitialCommunities", "InitialCommunitiesMap"),
                       tablesAll = c("ForCSOutput", "SoilSpinUp", "AvailableLightBiomass",
@@ -28,7 +30,6 @@ initForCS <- function(forCSInput, ### a formatted Forest Carbon Succession input
     bsMain <- landisInputFetch(bsMainInput, type = "BSMain")
     bsDyn <- landisInputFetch(bsDynInput, type = "BSDynamics")
     forCS <- landisInputFetch(forCSInput, type = "ForCS")
-    # 
     # # fetching Forest Carbon succession template file
     # x <- readLines(forCSInput)
     print("Done!")
@@ -42,10 +43,15 @@ initForCS <- function(forCSInput, ### a formatted Forest Carbon Succession input
                     spuURL = spuURL)
     print("Done!")
     
-
-    
     ############################################################################
-    ### processing from top to bottom
+    ### updating AvailableLightBiomass (identical format)
+    print("Preparing / updating 'AvailableLightBiomass'...")
+    forCS$AvailableLightBiomass$table <- bsMain$MinRelativeBiomass$table
+    # storing landtype names for further use
+    lt <- colnames(forCS$AvailableLightBiomass$table)
+    print("Done!")
+    
+    
     
     ############################################################################
     ### updating file names (if necessary)
@@ -63,13 +69,7 @@ initForCS <- function(forCSInput, ### a formatted Forest Carbon Succession input
     print("Done!")
     
     
-    ############################################################################
-    ### updating AvailableLightBiomass (identical format)
-    print("Preparing / updating 'AvailableLightBiomass'...")
-    forCS$AvailableLightBiomass$table <- bsMain$MinRelativeBiomass$table
-    # storing landtype names for further use
-    lt <- colnames(forCS$AvailableLightBiomass$table)
-    print("Done!")
+
     
     ############################################################################
     ### updating LightEstablishmentTable (identical format)
@@ -330,10 +330,52 @@ initForCS <- function(forCSInput, ### a formatted Forest Carbon Succession input
     ############################################################################
     #### Dynamic inputs
     
+    
+    if(interpolate) {
+      print("Interpolating dynamic inputs for an annual timestep")
+      for (sp in unique(bsDyn$species)) {
+        for (l in unique(bsDyn$landtype)) {
+          tmp <- filter(bsDyn, landtype == l, species == sp) %>%
+            arrange(year)
+          
+          xout <- min(tmp$year):max(tmp$year)
+          
+          periodLength <- diff(tmp$year)
+          periodLength <- c(periodLength, last(periodLength))
+          tmp$year <- tmp$year + periodLength/2
+          
+          
+          
+          probEst <- round(as.data.frame(approx(tmp$year, tmp$probEst,  xout = xout))$y, 3)
+          probEst[is.na(probEst)] <- probEst[!is.na(probEst)][1]
+          maxANPP <- round(as.data.frame(approx(tmp$year, tmp$maxANPP,  xout = xout))$y, 0)
+          maxANPP[is.na(maxANPP)] <- maxANPP[!is.na(maxANPP)][1]
+          maxB <- round(as.data.frame(approx(tmp$year, tmp$maxB,  xout = xout))$y)
+          maxB[is.na(maxB)] <- maxB[!is.na(maxB)][1]
+          
+          tmp <- data.frame(year = xout, landtype = l, species = sp,
+                            probEst, maxANPP, maxB)
+          
+          
+          if(sp == unique(bsDyn$species)[1] &
+             l == unique(bsDyn$landtype)[1]) {
+            x <- tmp 
+          } else {
+            x <- rbind(x, tmp)
+          }
+        }
+      }
+      x <- arrange(x, year, landtype, species)
+      bsDyn <- x
+    }
+    
+    
+    
     #####
     print("Resetting update year based on an annual timestep...")
     tsCorr <- bsMain$Timestep-1
     tsCorr <- tsCorr - inputOffset
+    
     
     # f <- function(x) {
     #     return(max(0, as.numeric(x[1])-tsCorr))
@@ -341,7 +383,9 @@ initForCS <- function(forCSInput, ### a formatted Forest Carbon Succession input
     f <- function(x) {
       return(as.numeric(x[1])-tsCorr)
     }
-    #### ANPPTimeSeries
+    
+    
+     #### ANPPTimeSeries
     print("Preparing / updating 'ANPPTimeSeries'")
     tmp <- bsDyn[, c("year", "landtype", "species", "maxANPP")]
     tmp[,"year"] <- apply(tmp, 1, f)
