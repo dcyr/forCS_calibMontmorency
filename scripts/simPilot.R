@@ -10,7 +10,7 @@ simDir <- simInfo$simID
 require(parallel)
 require(doSNOW)
 n <- ifelse(Sys.info()["user"] == "dcyr-z840",
-            12 , 1)
+            45 , 1)
 
 n <- min(n, nrow(simInfo))
 

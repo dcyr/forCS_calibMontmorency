@@ -14,8 +14,7 @@ rm(wwd)
 
 ### input path (LANDIS)
 inputPathLandis <- "../inputsLandis"
-inputPathScripts <- "../scripts"
-source("../scripts/initBaseHarvest_fnc.R")
+#inputPathScripts <- "../scripts"
 
 ### Generates simulation packages for LANDIS-II 
 #############
@@ -24,12 +23,12 @@ require(dplyr)
 inputDir <- inputPathLandis
 
 
-simDuration <- 10 #overridded if spinup == T
+simDuration <- 100 #overridded if spinup == T
 forCSVersion <- "3.1"
 expDesign <- list(area = c("ForMont"),#"ForMont", ),#", "Hereford"
-                  scenario = "baseline",#c("baseline", "RCP45", "RCP85"),
+                  scenario = c("baseline", "RCP45", "RCP85"),
                   mgmt = list(#Hereford = "1"),#c("1", "2", "3", "4", "noHarvest")),
-                    ForMont =  c("0")),
+                    ForMont =  c("CPRS", "CPI-CP", "noHarvest")),
                     # ForMont =  c("0",
                               #             "1",
                               #             "2.1", "2.2", "2.3",
@@ -38,10 +37,8 @@ expDesign <- list(area = c("ForMont"),#"ForMont", ),#", "Hereford"
                               #             "noHarvest")),
                               #Maskinonge = c("noHarvest", "baseline")
                   #c("noHarvest", "baseline")
-                  spinup = T,
-                  cropped  = list(Hereford = F,
-                                ForMont = T,
-                                Maskinonge = F),
+                  spinup = F,
+                  cropped  = list(ForMont = F),
                   fire = F,
                   BDA = T,
                   wind = T,
@@ -218,7 +215,7 @@ foreach(i = 1:nrow(simInfo)) %dopar% {
                       datatype='INT4S', overwrite=TRUE, NAflag = 0)
           # management areas
           r <- raster(paste0(inputDir, "/mgmt-areas_",
-                             areaName, "_", mgmt, ".tif"))
+                             areaName, ".tif"))
           r <- crop(r, e)
           writeRaster(r, file = paste0(simID, "/mgmt-areas.tif"),
                       datatype='INT4S', overwrite=TRUE, NAflag = 0)
@@ -229,18 +226,23 @@ foreach(i = 1:nrow(simInfo)) %dopar% {
                            areaName, ".tif"),
                     paste0(simID, "/stand-map.tif"),
                     overwrite = T)
+          
           # management areas
           file.copy(paste0(inputDir, "/mgmt-areas_",
-                           areaName, "_", mgmt, ".tif"),
+                           areaName, ".tif"),
                     paste0(simID, "/mgmt-areas.tif"),
                     overwrite = T)
+          
+          
         }
         # ### Harvesting
         
         # base-harvest.txt
-        input <- paste0(inputDir, "/biomass-harvest_",
-                        areaName, "_", mgmt, ".txt")
-        initBaseHarvest(input, writeToFile = paste0(simID, "/base-harvest.txt"))
+        
+        file.copy(paste0(inputDir, "/biomass-harvest_",
+                         areaName, "_", mgmt, ".txt"),
+                  paste0(simID, "/biomass-harvest.txt"),
+                  overwrite = T)
       }
       
     
@@ -295,7 +297,7 @@ foreach(i = 1:nrow(simInfo)) %dopar% {
         x[index] <- paste(">>", x[index])
       }
       if(!harvest) {
-        index <- grep("Base Harvest", x)
+        index <- grep("Biomass Harvest", x)
         x[index] <- paste(">>", x[index])
       }
       if(!wind) {

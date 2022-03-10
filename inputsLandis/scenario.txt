@@ -15,7 +15,7 @@ CellLength  250 << meters
 
 >> Disturbance Extensions   Initialization File
 >> ----------------------   -------------------
-	"Base Harvest"	        base-harvest.txt
+	"Biomass Harvest"	    biomass-harvest.txt
 	"Base Fire"		    	base-fire.txt
 	"Base Wind"		    	base-wind.txt
 	"Base BDA"		    	base-bda.txt

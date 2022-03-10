@@ -389,6 +389,7 @@ initForCS <- function(forCSInput, ### a formatted Forest Carbon Succession input
     print("Preparing / updating 'ANPPTimeSeries'")
     tmp <- bsDyn[, c("year", "landtype", "species", "maxANPP")]
     tmp[,"year"] <- apply(tmp, 1, f)
+    tmp <- tmp[tmp$year>=0,]
     forCS$ANPPTimeSeries$table <- tmp
     # add standard deviation
     forCS$ANPPTimeSeries$table[,"ANPP-Std"] <- 1
@@ -398,6 +399,7 @@ initForCS <- function(forCSInput, ### a formatted Forest Carbon Succession input
     print("Preparing / updating 'MaxBiomassTimeSeries'")
     tmp <- bsDyn[, c("year", "landtype", "species", "maxB")]
     tmp[,"year"] <- apply(tmp, 1, f)
+    tmp <- tmp[tmp$year>=0,]
     forCS$MaxBiomassTimeSeries$table <- tmp
     print("Done!")
     
@@ -405,6 +407,7 @@ initForCS <- function(forCSInput, ### a formatted Forest Carbon Succession input
     print("Preparing / updating 'EstablishProbabilities'")
     tmp <- bsDyn[, c("year", "landtype", "species", "probEst")]
     tmp[,"year"] <- apply(tmp, 1, f) 
+    tmp <- tmp[tmp$year>=0,]
     forCS$EstablishProbabilities$table <- tmp
     print("Done!")
     
