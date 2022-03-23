@@ -13,9 +13,13 @@ require(dplyr)
 
 initYear <- 2020
 unitConvFact <- 0.01 ### from gC /m2 to tonnes per ha
-a <- "ForMont"
+simName <- "ForMont_validation"
+a <- ifelse(grepl("ForMont", simName), "ForMont",
+            ifelse(grepl("Hereford", simName), "Forêt Hereford", simName))
+
 areaName <- ifelse(a == "ForMont", "Forêt Montmorency",
-                   ifelse(a == "Hereford", "Forêt Hereford", "[placeholder]"))
+                   ifelse(a == "Hereford", "Forêt Hereford", a))
+
 require(ggplot2)
 require(dplyr)
 require(tidyr)
@@ -43,9 +47,9 @@ scenRef <- list(ForMont = "CPRS")
 ################################################################################
 ################################################################################
 ################################################################################
-outputSummary <- get(load(paste0("../outputCompiled/output_summary_", a, ".RData")))
-fps <- read.csv(paste0("../outputCompiled/output_BioToFPS_", a, ".csv"))#read.csv("output_BioToFPS_Hereford.csv")#
-AGB <- get(load(paste0("../outputCompiled/output_bio_", a, ".RData")))
+outputSummary <- get(load(paste0("../outputCompiled/output_summary_", simName, ".RData")))
+fps <- read.csv(paste0("../outputCompiled/output_BioToFPS_", simName, ".csv"))#read.csv("output_BioToFPS_Hereford.csv")#
+AGB <- get(load(paste0("../outputCompiled/output_bio_", simName, ".RData")))
 
 ################################################################################
 outputSummary <- outputSummary %>%
@@ -139,7 +143,7 @@ p <- p +
     theme(plot.caption = element_text(size = rel(.5), hjust = 0),
           axis.text.x = element_text(angle = 45, hjust = 1)) +
     labs(title = "Évolution de la densité moyenne en carbone",
-         subtitle = areaName,
+         subtitle = paste(areaName, simName),
          x = "",
          y = expression(paste("tonnes C"," ha"^"-1","\n")),
          caption = paste0("ABio : Biomasse aérienne",
@@ -148,7 +152,7 @@ p <- p +
 
 
     
-png(filename= paste0("pools_", a, ".png"),
+png(filename= paste0("pools_", simName, ".png"),
     width = 8, height = 6, units = "in", res = 600, pointsize=10)
     
     print(p)
@@ -214,12 +218,12 @@ p <- p + facet_grid(variable ~ scenario, scale = "free") +#facet_wrap( ~ scenari
                        values = cols[[a]]) +
     theme(plot.caption = element_text(size = rel(.5), hjust = 0)) +
     labs(title = paste("Dynamique du carbone"),
-         subtitle = areaName,
+         subtitle = paste(areaName, simName),
          y = expression(paste("tonnes C"," ha"^"-1", " yr"^"-1", "\n")),
          caption = paste(caption, collapse = "\n")) 
 
 
-png(filename= paste0("fluxes_", a, ".png"),
+png(filename= paste0("fluxes_", simName, ".png"),
     width = 8, height = 8, units = "in", res = 600, pointsize=10)
 print(p)
 
@@ -265,7 +269,7 @@ getPalette = colorRampPalette(brewer.pal(8, "Set1"))
 
 ### stacked (per species)
 pHeight <- 1.5*length(levels(df$mgmtScenario))
-png(filename= paste0("fps_spp_", a, ".png"),
+png(filename= paste0("fps_spp_", simName, ".png"),
     width = 8, height = pHeight, units = "in", res = 600, pointsize=10)
 
 #ggplot(df, aes(x = 2010+Time, y = BioToFPS_tonnesCTotal/areaHarvestedTotal_ha)) + 
@@ -277,7 +281,7 @@ ggplot(df, aes(x = 2010+Time, y = BioToFPS_tonnesCTotal)) +
     theme(plot.caption = element_text(size = rel(.5), hjust = 0),
           axis.text.x = element_text(angle = 45, hjust = 1)) +
     labs(title = "Transfers vers les produits forestiers",
-         subtitle = areaName,
+         subtitle = paste(areaName, simName),
          x = "",
          y = expression(paste("tonnes C récoltées","\n"))) +
     geom_text(data = labdf, aes(label = paste("Superficie aménagée:", areaManagedTotal_ha, "ha"),
@@ -306,13 +310,13 @@ p <- p + geom_line()+
     theme(plot.caption = element_text(size = rel(.5), hjust = 0),
           axis.text.x = element_text(angle = 45, hjust = 1)) +
     labs(title = "Transfers vers les produits forestiers",
-         subtitle = areaName,
+         subtitle = paste(areaName, simName),
          x = "",
          y = expression(paste("tonnes C récoltées","\n")))
          #y = expression(paste("tonnes C"," ha"^"-1", "récolté","\n")))
 
 
-png(filename= paste0("fps_total_", a, ".png"),
+png(filename= paste0("fps_total_", simName, ".png"),
     width = 8, height = 4, units = "in", res = 600, pointsize=10)
 print(p)
 
@@ -373,7 +377,7 @@ require(RColorBrewer)
 colourCount = length(unique(df$species))
 getPalette = colorRampPalette(brewer.pal(9, "Set1"))
 pHeight <- 2 * length(unique(df$mgmtScenario))
-png(filename= paste0("agb_sppStack_", a, ".png"),
+png(filename= paste0("agb_sppStack_", simName, ".png"),
     width = 8, height = pHeight, units = "in", res = 600, pointsize=10)
 
 ggplot(df, aes(x = 2020+Time, y = agb_tonnesTotal/areaTotal_ha)) + 
@@ -385,7 +389,7 @@ ggplot(df, aes(x = 2020+Time, y = agb_tonnesTotal/areaTotal_ha)) +
     theme(plot.caption = element_text(size = rel(.5), hjust = 0),
           axis.text.x = element_text(angle = 45, hjust = 1)) +
     labs(title = "Évolution de la composition forestière  - Biomasse aérienne*",
-         subtitle = paste(areaName),
+         subtitle = paste(areaName, simName),
          x = "",
          y = expression(paste("tonnes"," ha"^"-1")),
          caption = "*Les valeurs sont exprimées ici en terme de poids sec (biomasse), et non de carbone")
@@ -398,7 +402,7 @@ dev.off()
 colourCount = length(unique(df$species))
 getPalette = colorRampPalette(brewer.pal(9, "Set1"))
 
-png(filename= paste0("agb_sppLine_", a, ".png"),
+png(filename= paste0("agb_sppLine_", simName, ".png"),
     width = 8, height = pHeight, units = "in", res = 600, pointsize=10)
 
 ggplot(df, aes(x = 2020+Time, y = agb_tonnesTotal/areaTotal_ha,
@@ -552,7 +556,7 @@ p <- ggplot(df, aes(x = 2020+Time, y = agb_tonnesTotal/areaTotal_ha)) +
          y = expression(paste("tonnes"," ha"^"-1")),
          caption = "*Les valeurs sont exprimées ici en terme de poids sec (biomasse), et non de carbone")
 
-png(filename= paste0("agb_AgeClassStacked_",a, ".png"),
+png(filename= paste0("agb_AgeClassStacked_",simName, ".png"),
     width = 10, height = 6, units = "in", res = 600, pointsize=10)
     print(p)
 dev.off()

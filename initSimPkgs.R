@@ -40,7 +40,7 @@ expDesign <- list(area = c("ForMont"),#"ForMont", ),#", "Hereford"
                   spinup = F,
                   cropped  = list(ForMont = F),
                   fire = F,
-                  BDA = T,
+                  BDA = F,
                   wind = T,
                   harvest = T,
                   rep = 1:5)

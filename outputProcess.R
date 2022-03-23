@@ -16,7 +16,8 @@ setwd(wwd)
 
 ### fetching outputs
 a <- "ForMont"
-simDir <- paste0("D:/ForCS - ForMont-calib/")#"#Montmorency-Hereford"#"D:/ForCS - "
+simDir <- paste0("D:/ForCS - ForMont_noBDA/")#"#Montmorency-Hereford"#"D:/ForCS - "
+simName <- gsub("ForCS - ", "", basename(simDir))
 #simDir <- paste0("D:/ForCS - Test/2020-06-11")#"#Montmorency-Hereford"#"D:/ForCS - "
 simInfo <- read.csv(paste(simDir, "simInfo.csv", sep = "/"),
                     colClasses=c("simID"="character"))
@@ -61,7 +62,7 @@ cl = makeCluster(clusterN, outfile = "") ##
 registerDoSNOW(cl)
 
 file.copy(paste(simDir, "simInfo.csv", sep = "/"),
-          paste0("simInfo_", a, ".csv"), overwrite = T)
+          paste0("simInfo_", simName, ".csv"), overwrite = T)
 
 simIDs <- simInfo$simID
 simIDs <- str_pad(simIDs, width = max(nchar(simIDs)),
@@ -105,8 +106,8 @@ outputList <- foreach(i = dirIndex)  %dopar% {
                                 skip = 1, comment.char = ">")
     landtypes_RAT <- landtypes_RAT[which(landtypes_RAT[,1] %in% c("yes", "y", "Yes", "Y")),]
     
-    studyArea <- raster(paste0("../inputsLandis/studyArea_", a, ".tif"))
-    landtypes[is.na(studyArea)] <- NA
+    #studyArea <- raster(paste0("../inputsLandis/studyArea_", a, ".tif"))
+    #landtypes[is.na(studyArea)] <- NA
     
     ## fetching lantypes values
     index <- which(!is.na(values(landtypes)))
@@ -124,7 +125,8 @@ outputList <- foreach(i = dirIndex)  %dopar% {
             x <- paste(sDir, "biomass-harvest.txt", sep = "/")
             harvImpl <- fetchHarvestImplementation(x) 
         } else {
-            mgmtAreas <- studyArea
+            mgmtAreas <- landtypes
+            mgmtAreas[!is.na(landtypes)] <- 1
         }
 
     }
@@ -296,7 +298,7 @@ outputList <- foreach(i = dirIndex)  %dopar% {
                                    replicate = replicate,
                                    agbTotal)
 
-            save(agbTotal, file = paste0("agbTotal_", areaName, "_", simID, ".RData"))
+            save(agbTotal, file = paste0("agbTotal_", simName, "_", simID, ".RData"))
             rm(agbTotal)
         }
 
@@ -311,7 +313,7 @@ outputList <- foreach(i = dirIndex)  %dopar% {
                                  mgmtScenario  = mgmtScenario,
                                  replicate = replicate,
                                  ageMax)
-            save(ageMax, file = paste0("ageMax_", areaName, "_", simID, ".RData"))
+            save(ageMax, file = paste0("ageMax_", simName, "_", simID, ".RData"))
             rm(ageMax)
         }
 
@@ -400,7 +402,7 @@ if("summary"  %in% logs ) {
         
     }
     outputSummary <-do.call("rbind", outputSummary)
-    save(outputSummary, file = paste0("output_summary_", a, ".RData"))
+    save(outputSummary, file = paste0("output_summary_", simName, ".RData"))
 }
 
 if("agbAgeClasses"  %in% logs ) {
@@ -411,7 +413,7 @@ if("agbAgeClasses"  %in% logs ) {
         
     }
     output_agbAgeClasses <- do.call("rbind", output_agbAgeClasses)
-    save(output_agbAgeClasses, file = paste0("output_bio_", a, ".RData"))
+    save(output_agbAgeClasses, file = paste0("output_bio_", simName, ".RData"))
 }
 if("FPS"  %in% logs ) {
     ### summary
@@ -421,7 +423,7 @@ if("FPS"  %in% logs ) {
         
     }
     outputSummary <-do.call("rbind", outputSummary)
-    write.csv(outputSummary, file = paste0("output_BioToFPS_", a, ".csv"), row.names = F)
+    write.csv(outputSummary, file = paste0("output_BioToFPS_", simName, ".csv"), row.names = F)
     #save(outputSummary, file = paste0("output_BioToFPS_", a, ".RData"))
 }
 
