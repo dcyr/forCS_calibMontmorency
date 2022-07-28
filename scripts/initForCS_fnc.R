@@ -14,6 +14,7 @@ initForCS <- function(forCSInput, ### a formatted Forest Carbon Succession input
                       allometry,
                       inputOffset = 0,
                       interpolate = F,
+                      alignT0withBaseline = F,
                       valuesSingleAll = c("Timestep", "SeedingAlgorithm", "ForCSClimateFile",
                                           "InitialCommunities", "InitialCommunitiesMap"),
                       tablesAll = c("ForCSOutput", "SoilSpinUp", "AvailableLightBiomass",
@@ -27,7 +28,7 @@ initForCS <- function(forCSInput, ### a formatted Forest Carbon Succession input
     
     print("Fetching Landis inputs and templates...")
     ### fetching source formatted Landis Biomass Succession inputs
-    bsMain <- landisInputFetch(bsMainInput, type = "BSMain")
+    bsMain <- landisInputFetch(input = bsMainInput, type = "BSMain")
     bsDyn <- landisInputFetch(bsDynInput, type = "BSDynamics")
     forCS <- landisInputFetch(forCSInput, type = "ForCS")
     # # fetching Forest Carbon succession template file
@@ -332,41 +333,46 @@ initForCS <- function(forCSInput, ### a formatted Forest Carbon Succession input
     
     
     if(interpolate) {
-      print("Interpolating dynamic inputs for an annual timestep")
-      for (sp in unique(bsDyn$species)) {
-        for (l in unique(bsDyn$landtype)) {
-          tmp <- filter(bsDyn, landtype == l, species == sp) %>%
-            arrange(year)
-          
-          xout <- min(tmp$year):max(tmp$year)
-          
-          periodLength <- diff(tmp$year)
-          periodLength <- c(periodLength, last(periodLength))
-          tmp$year <- tmp$year + periodLength/2
-          
-          
-          
-          probEst <- round(as.data.frame(approx(tmp$year, tmp$probEst,  xout = xout))$y, 3)
-          probEst[is.na(probEst)] <- probEst[!is.na(probEst)][1]
-          maxANPP <- round(as.data.frame(approx(tmp$year, tmp$maxANPP,  xout = xout))$y, 0)
-          maxANPP[is.na(maxANPP)] <- maxANPP[!is.na(maxANPP)][1]
-          maxB <- round(as.data.frame(approx(tmp$year, tmp$maxB,  xout = xout))$y)
-          maxB[is.na(maxB)] <- maxB[!is.na(maxB)][1]
-          
-          tmp <- data.frame(year = xout, landtype = l, species = sp,
-                            probEst, maxANPP, maxB)
-          
-          
-          if(sp == unique(bsDyn$species)[1] &
-             l == unique(bsDyn$landtype)[1]) {
-            x <- tmp 
-          } else {
-            x <- rbind(x, tmp)
+      if(length(unique(bsDyn$year))<2) {
+        warning("only one period provided, no interpolation possible")
+      } else {
+        print("Interpolating dynamic inputs for an annual timestep")
+        for (sp in unique(bsDyn$species)) {
+          for (l in unique(bsDyn$landtype)) {
+            tmp <- filter(bsDyn, landtype == l, species == sp) %>%
+              arrange(year)
+            
+            xout <- min(tmp$year):max(tmp$year)
+            
+            periodLength <- diff(tmp$year)
+            periodLength <- c(periodLength, last(periodLength))
+            tmp$year <- tmp$year + periodLength/2
+            
+            
+            
+            probEst <- round(as.data.frame(approx(tmp$year, tmp$probEst,  xout = xout))$y, 3)
+            probEst[is.na(probEst)] <- probEst[!is.na(probEst)][1]
+            maxANPP <- round(as.data.frame(approx(tmp$year, tmp$maxANPP,  xout = xout))$y, 0)
+            maxANPP[is.na(maxANPP)] <- maxANPP[!is.na(maxANPP)][1]
+            maxB <- round(as.data.frame(approx(tmp$year, tmp$maxB,  xout = xout))$y)
+            maxB[is.na(maxB)] <- maxB[!is.na(maxB)][1]
+            
+            tmp <- data.frame(year = xout, landtype = l, species = sp,
+                              probEst, maxANPP, maxB)
+            
+            
+            if(sp == unique(bsDyn$species)[1] &
+               l == unique(bsDyn$landtype)[1]) {
+              x <- tmp 
+            } else {
+              x <- rbind(x, tmp)
+            }
           }
         }
+        x <- arrange(x, year, landtype, species)
+        bsDyn <- x
       }
-      x <- arrange(x, year, landtype, species)
-      bsDyn <- x
+      
     }
     
     
@@ -377,9 +383,6 @@ initForCS <- function(forCSInput, ### a formatted Forest Carbon Succession input
     tsCorr <- tsCorr - inputOffset
     
     
-    # f <- function(x) {
-    #     return(max(0, as.numeric(x[1])-tsCorr))
-    # }
     f <- function(x) {
       return(as.numeric(x[1])-tsCorr)
     }
@@ -389,8 +392,13 @@ initForCS <- function(forCSInput, ### a formatted Forest Carbon Succession input
     print("Preparing / updating 'ANPPTimeSeries'")
     tmp <- bsDyn[, c("year", "landtype", "species", "maxANPP")]
     tmp[,"year"] <- apply(tmp, 1, f)
-    tmp <- tmp[tmp$year>=0,]
-    forCS$ANPPTimeSeries$table <- tmp
+    tmp <- tmp[tmp$year>=-tsCorr,]
+    if(length(unique(tmp$year)) == 1) {
+      if(unique(tmp$year) == -tsCorr) {
+        tmp$year <- 0
+      }
+    }
+    forCS$ANPPTimeSeries$table <- tmp[tmp$year>=0,]
     # add standard deviation
     forCS$ANPPTimeSeries$table[,"ANPP-Std"] <- 1
     print("Done!")
@@ -398,19 +406,52 @@ initForCS <- function(forCSInput, ### a formatted Forest Carbon Succession input
     #### MaxBiomassTimeSeries
     print("Preparing / updating 'MaxBiomassTimeSeries'")
     tmp <- bsDyn[, c("year", "landtype", "species", "maxB")]
-    tmp[,"year"] <- apply(tmp, 1, f)
-    tmp <- tmp[tmp$year>=0,]
-    forCS$MaxBiomassTimeSeries$table <- tmp
+    tmp[,"year"] <-  apply(tmp, 1, f)
+    tmp <- tmp[tmp$year>=-tsCorr,]
+    if(length(unique(tmp$year)) == 1) {
+      if(unique(tmp$year) == -tsCorr) {
+        tmp$year <- 0
+      }
+    }
+    forCS$MaxBiomassTimeSeries$table <- tmp[tmp$year>=0,]
     print("Done!")
     
     #### EstablishProbabilities
-    print("Preparing / updating 'EstablishProbabilities'")
+    print("Preparing / updating 'MaxBiomassTimeSeries'")
     tmp <- bsDyn[, c("year", "landtype", "species", "probEst")]
-    tmp[,"year"] <- apply(tmp, 1, f) 
-    tmp <- tmp[tmp$year>=0,]
-    forCS$EstablishProbabilities$table <- tmp
+    tmp[,"year"] <-  apply(tmp, 1, f)
+    tmp <- tmp[tmp$year>=-tsCorr,]
+    if(length(unique(tmp$year)) == 1) {
+      if(unique(tmp$year) == -tsCorr) {
+        tmp$year <- 0
+      }
+    }
+    forCS$EstablishProbabilities$table <- tmp[tmp$year>=0,]
     print("Done!")
+  
+    ### storing T0 baseline dynamic inputs is alignment with
+    ### other scenarios is required
+    if(s == "baseline" &
+       alignT0withBaseline) {
+      dynInputT0 <- list(ANPP = filter(forCS$ANPPTimeSeries$table,
+                                       year == 0),
+                         maxB = filter(forCS$MaxBiomassTimeSeries$table,
+                                       year == 0),
+                         SEP = filter(forCS$EstablishProbabilities$table,
+                                       year == 0))
+    }
     
+    if(s != "baseline" &
+       alignT0withBaseline) {
+      
+      dynInputT0 <- out$dynInputT0
+      index <- which(forCS$ANPPTimeSeries$table$year == 0)
+      forCS$ANPPTimeSeries$table[index,] <- dynInputT0$ANPP
+      forCS$MaxBiomassTimeSeries$table[index,] <- dynInputT0$maxB
+      forCS$EstablishProbabilities$table[index,] <- dynInputT0$SEP
+      
+    }
+
     
     ############################################################################
     #### RootDynamics
@@ -473,9 +514,19 @@ initForCS <- function(forCSInput, ### a formatted Forest Carbon Succession input
         tMean_fetch(landtypes, landtypes_AT,
                     area = a,
                     t0 = t0,
-                    scenario = scenario,
+                    scenario = s,
                     writeToFile = file,
                     outputTable = F)
         print("Done!") 
     }
+    
+    
+    
+    if(alignT0withBaseline) {
+      out <- list(dynInputT0 = dynInputT0)
+    } else {
+      out <- list()
+    }
+    return(out)
+    
 }

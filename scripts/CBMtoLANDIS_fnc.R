@@ -357,7 +357,7 @@ landisInputFetch <- function(input, type) { ## 'type' is one of 'BiomassSuccessi
         ### converting to numerical if possible
         tmp <- apply(tableContent, 2, function(x) suppressWarnings(as.numeric(x)))
         
-        if(class(tmp)=="matrix") {
+        if(class(tmp)[[1]]=="matrix") {
             numericIndex <- which(apply(tmp, 2, function(x) sum(is.na(x))==0))  
             for (j in 1:ncol(tmp)) {
                 if(is.na(sum(tmp[,j]))) {
@@ -1028,8 +1028,8 @@ tMean_fetch <- function(landtypes, landtypes_AT,
       
       tMean_project <- read.csv(paste0("../climate/Tmean_", a, ".csv"))
       tMean_simAverage <- tMean_project %>%
-        filter(tMean_project$ï..Annee <= 2000 &
-                 tMean_project$ï..Annee >= 1970) %>%
+        filter(tMean_project$Annee <= 2000 &
+                 tMean_project$Annee >= 1970) %>%
         summarise(meanObs = mean(Obs),
                   mean45 = mean(rcp45.Avg),
                   mean85 = mean(rcp85.Avg))
@@ -1043,10 +1043,10 @@ tMean_fetch <- function(landtypes, landtypes_AT,
       
       ### splicing time series
       breaks <- seq(from = t0,
-                    to = max(tMean_project$ï..Annee)+timestep,
+                    to = max(tMean_project$Annee)+timestep,
                     by = timestep)
       
-      tMean_sim <- tMean_project[,c("ï..Annee", paste0(tolower(scenario), ".Avg"))]
+      tMean_sim <- tMean_project[,c("Annee", paste0(tolower(scenario), ".Avg"))]
       tMean_sim <- data.frame(year = tMean_sim[,1],
                               tMean = tMean_sim[,2]) %>%
         filter(year >= t0) %>%

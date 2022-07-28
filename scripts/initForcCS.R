@@ -41,15 +41,17 @@ source(paste(scriptPath, "initForCS_fnc.R", sep = "/"), encoding = "Windows-1252
 ################################################################################
 landisInputs <- list.files(inputPathLandis)
 ### experiment specifics
-scenario <- c("RCP45", "RCP85")#, 
+scenario <- c("baseline", "RCP45", "RCP85")#, 
 area <-  "ForMont"#c("Hereford", "ForMont")#"Maskinonge"
 t0 <- 2020
 inputOffset <- 0 
 version <- "3.1"
 spinup <- F
 climate <- T
-allometry = T
-interpolate = T
+allometry <- T
+interpolate <- T
+alignT0withBaseline <- T
+
 
 ################################################################################
 # might want to create loops here, or a function
@@ -90,14 +92,15 @@ for(a in area) {
             
 
         ### Preparing 'forCS-input.txt' and 'forCS-climate.txt'
-        initForCS(forCSInput, bsMainInput, bsDynInput, landtypes, landtypes_AT,
+        out <- initForCS(forCSInput, bsMainInput, bsDynInput, landtypes, landtypes_AT,
                   version = version,
                   spinup = spinup,
                   climate = climate,
                   allometry = allometry,
                   t0 = t0,
                   scenario = s,
-                  interpolate = interpolate)
+                  interpolate = interpolate,
+                  alignT0withBaseline = alignT0withBaseline)
     }
 }
 

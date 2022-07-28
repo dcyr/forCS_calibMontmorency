@@ -18,7 +18,7 @@ require(rgeos)
 require(tidyverse)
 a <- "ForMont"#c("Hereford", "Maskinonge", "ForMont")
 
-df <- read.csv("./0/log_Pools.csv")
+df <- read.csv("D:/ForCS - test/0/log_Pools.csv")#/log_Pools.csv")
 
 # 1 "Very Fast Aboveground"
 # 2 "Very Fast Belowground"
