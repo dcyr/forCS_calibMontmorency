@@ -1,32 +1,52 @@
 LandisData "Biomass Harvest" 
 Timestep  1 
-
-ManagementAreas mgmt-areas.tif
-Stands stand-map.tif 
+ManagementAreas "mgmt-areas.tif" 
+Stands "stand-map.tif" 
 
 Prescription CPRS 
-StandRanking Random
-MinimumAge 50 
+StandRanking Economic 
+ABIE.BAL 100 80
+BETU.PAP 100 80
+PICE.GLA 100 80
+PICE.MAR 100 80
+POPU.TRE 100 80
+ABIE.BAL 80 50
+BETU.PAP 80 50
+PICE.GLA 80 50
+PICE.MAR 80 50
+POPU.TRE 80 50
+
+MinimumTimeSinceLastHarvest 70
+SiteSelection CompleteStandSpread 1  10 
+
+CohortsRemoved SpeciesList 
+ABIE.BAL 1-10 (33%) 11-999(100%)
+BETU.PAP 1-10 (33%) 11-999(100%)
+PICE.GLA 1-10 (33%) 11-999(100%)
+PICE.MAR 1-10 (33%) 11-999(100%)
+POPU.TRE 1-10 (33%) 11-999(100%)
+
+
+Prescription CPI-CP 
+StandRanking Economic 
+ABIE.BAL 100 80
+BETU.PAP 100 80
+PICE.GLA 100 80
+PICE.MAR 100 80
+POPU.TRE 100 80
+ABIE.BAL 80 50
+BETU.PAP 80 50
+PICE.GLA 80 50
+PICE.MAR 80 50
+POPU.TRE 80 50
+MinimumTimeSinceLastHarvest 30 
 SiteSelection CompleteStandSpread 1  10 
 CohortsRemoved SpeciesList 
-ABIE.BAL 11-999
-BETU.PAP 11-999
-PICE.GLA 11-999
-PICE.MAR 11-999
-POPU.TRE 11-999
-
-
-Prescription CP 
-StandRanking Random 
-MinimumAge 30
-SiteSelection CompleteStandSpread 1  25 
-CohortsRemoved SpeciesList 
-ABIE.BAL 21-999(33%)
-BETU.PAP 21-999(33%)
-PICE.GLA 21-999(33%)
-PICE.MAR 21-999(33%)
-POPU.TRE 21-999(33%)
-
+ABIE.BAL 1-120(33%) 120-999 (80%)
+BETU.PAP 1-120(33%) 120-999 (80%)
+PICE.GLA 1-120(33%) 120-999 (80%)
+PICE.MAR 1-120(33%) 120-999 (80%)
+BETU.PAP 1-120(33%) 120-999 (80%)
 
 
 HarvestImplementations 
