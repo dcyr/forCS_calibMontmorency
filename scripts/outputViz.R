@@ -13,7 +13,7 @@ require(dplyr)
 
 initYear <- 2020
 unitConvFact <- 0.01 ### from gC /m2 to tonnes per ha
-simName <- "ForMont_validation"
+simName <- "ForMont_testMaxAgeRanking"
 a <- ifelse(grepl("ForMont", simName), "ForMont",
             ifelse(grepl("Hereford", simName), "Forêt Hereford", simName))
 
@@ -268,12 +268,12 @@ colourCount = length(unique(df$species))
 getPalette = colorRampPalette(brewer.pal(8, "Set1"))
 
 ### stacked (per species)
-pHeight <- 1.5*length(levels(df$mgmtScenario))
+pHeight <- 1.5*length(unique(df$mgmtScenario))
 png(filename= paste0("fps_spp_", simName, ".png"),
     width = 8, height = pHeight, units = "in", res = 600, pointsize=10)
 
 #ggplot(df, aes(x = 2010+Time, y = BioToFPS_tonnesCTotal/areaHarvestedTotal_ha)) + 
-ggplot(df, aes(x = 2010+Time, y = BioToFPS_tonnesCTotal)) + 
+ggplot(df, aes(x = initYear+Time, y = BioToFPS_tonnesCTotal)) + 
     stat_summary(aes(fill = species), fun.y="sum", geom="area", position = "stack") +
     facet_grid(mgmtScenarioName ~ scenario) +
     scale_fill_manual(values = getPalette(colourCount)) +
@@ -285,7 +285,7 @@ ggplot(df, aes(x = 2010+Time, y = BioToFPS_tonnesCTotal)) +
          x = "",
          y = expression(paste("tonnes C récoltées","\n"))) +
     geom_text(data = labdf, aes(label = paste("Superficie aménagée:", areaManagedTotal_ha, "ha"),
-                                y = yMax, x = 2010),
+                                y = yMax, x = initYear),
               hjust = 0, vjust = 1, size = 2)
     
 dev.off()
@@ -294,11 +294,11 @@ dev.off()
 
 ### total
 if(a == "Hereford") {
-    p <- ggplot(dfTotal, aes(x = 2010+Time, y = BioToFPS_tonnesCTotal,
+    p <- ggplot(dfTotal, aes(x = initYear+Time, y = BioToFPS_tonnesCTotal,
                              colour = mgmtScenario))
 }
 if(a == "ForMont") {
-    p <- ggplot(dfTotal, aes(x = 2010+Time, y = BioToFPS_tonnesCTotal,
+    p <- ggplot(dfTotal, aes(x = initYear+Time, y = BioToFPS_tonnesCTotal,
                              colour = mgmtScenarioName))
 }
 

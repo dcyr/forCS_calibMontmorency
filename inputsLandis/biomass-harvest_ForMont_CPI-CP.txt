@@ -4,44 +4,29 @@ ManagementAreas "mgmt-areas.tif"
 Stands "stand-map.tif" 
 
 Prescription CPRS 
-StandRanking Economic 
-ABIE.BAL 100 80
-BETU.PAP 100 80
-PICE.GLA 100 80
-PICE.MAR 100 80
-ABIE.BAL 80 50
-BETU.PAP 80 50
-PICE.GLA 80 50
-PICE.MAR 80 50
+StandRanking MaxCohortAge 
 
-MinimumTimeSinceLastHarvest 70
+MinimumTimeSinceLastHarvest 60
 SiteSelection CompleteStandSpread 1  10 
 
 CohortsRemoved SpeciesList 
-ABIE.BAL 1-10 (33%) 11-999(100%)
-BETU.PAP 1-10 (33%) 11-999(100%)
-PICE.GLA 1-10 (33%) 11-999(100%)
-PICE.MAR 1-10 (33%) 11-999(100%)
+ABIE.BAL 1-10(33%) 11-999(100%)
+BETU.PAP 1-10(33%) 11-999(100%)
+PICE.GLA 1-10(33%) 11-999(100%)
+PICE.MAR 1-10(33%) 11-999(100%)
 
 
-Prescription CPI-CP 
-StandRanking Economic 
-ABIE.BAL 100 80
-BETU.PAP 100 80
-PICE.GLA 100 80
-PICE.MAR 100 80
-ABIE.BAL 80 50
-BETU.PAP 80 50
-PICE.GLA 80 50
-PICE.MAR 80 50
+Prescription CPI-CP
+StandRanking MaxCohortAge 
 
-MinimumTimeSinceLastHarvest 30 
+MinimumTimeSinceLastHarvest 25 
 SiteSelection CompleteStandSpread 1  10 
+
 CohortsRemoved SpeciesList 
-ABIE.BAL 1-120(33%) 120-999 (80%)
-BETU.PAP 1-120(33%) 120-999 (80%)
-PICE.GLA 1-120(33%) 120-999 (80%)
-PICE.MAR 1-120(33%) 120-999 (80%)
+ABIE.BAL 1-90(33%) 91-999(100%)
+BETU.PAP 1-90(33%) 91-999(100%)
+PICE.GLA 1-90(33%) 91-999(100%)
+PICE.MAR 1-90(33%) 91-999(100%)
 
 
 HarvestImplementations 

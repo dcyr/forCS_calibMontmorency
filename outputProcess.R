@@ -16,7 +16,7 @@ setwd(wwd)
 
 ### fetching outputs
 a <- "ForMont"
-simDir <- paste0("D:/ForCS - ForMont_noBDA/")#"#Montmorency-Hereford"#"D:/ForCS - "
+simDir <- paste0("D:/ForCS - ForMont_testMaxAgeRanking//")#"#Montmorency-Hereford"#"D:/ForCS - "
 simName <- gsub("ForCS - ", "", basename(simDir))
 #simDir <- paste0("D:/ForCS - Test/2020-06-11")#"#Montmorency-Hereford"#"D:/ForCS - "
 simInfo <- read.csv(paste(simDir, "simInfo.csv", sep = "/"),
@@ -98,7 +98,10 @@ outputList <- foreach(i = dirIndex)  %dopar% {
     ###
     sppLvls <- read.table(paste(sDir, "species.txt", sep = "/"),
                           skip = 1, comment.char = ">")[,1]
-    sppLvls <- levels(sppLvls)
+    if(is.factor(sppLvls)) {
+        sppLvls <- levels(sppLvls)    
+    }
+    
 
     ### fetching landtypes
     landtypes <- raster(paste(sDir, "landtypes.tif", sep = "/"))

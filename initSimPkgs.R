@@ -23,7 +23,7 @@ require(dplyr)
 inputDir <- inputPathLandis
 
 
-simDuration <- 5 #overridded if spinup == T
+simDuration <- 300 #overridded if spinup == T
 forCSVersion <- "3.1"
 expDesign <- list(area = c("ForMont"),#"ForMont", ),#", "Hereford"
                   scenario = c("baseline", "RCP45", "RCP85"),
@@ -43,7 +43,7 @@ expDesign <- list(area = c("ForMont"),#"ForMont", ),#", "Hereford"
                   BDA = T,
                   wind = T,
                   harvest = T,
-                  rep = 1)
+                  rep = 1:5)
 
 
 # ### 2019-09-24
