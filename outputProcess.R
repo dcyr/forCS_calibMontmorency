@@ -16,7 +16,7 @@ setwd(wwd)
 
 ### fetching outputs
 a <- "ForMont"
-simDir <- paste0("D:/ForCS - ForMont_testMaxAgeRanking//")#"#Montmorency-Hereford"#"D:/ForCS - "
+simDir <- paste0("D:/ForCS - ForMont_2022-08-09/")#"#Montmorency-Hereford"#"D:/ForCS - "
 simName <- gsub("ForCS - ", "", basename(simDir))
 #simDir <- paste0("D:/ForCS - Test/2020-06-11")#"#Montmorency-Hereford"#"D:/ForCS - "
 simInfo <- read.csv(paste(simDir, "simInfo.csv", sep = "/"),

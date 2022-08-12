@@ -11,7 +11,7 @@ fetchHarvestImplementation <- function(x) { #function(x, prescripLvls) {
     #HarvestImpTmp <-  HarvestImpTmp[grep(paste(prescriptLvls, collapse = "|"), HarvestImpTmp)]
     #### putting into a nice data frame
     for (i in seq_along(harvestImpTmp)) {
-        x <- strsplit(harvestImpTmp[[i]], "\\t")[[1]]
+        x <- strsplit(harvestImpTmp[[i]], "\\t| ")[[1]]
         x <- x[nchar(x)!=0]
         
         #prescripLvls <- 

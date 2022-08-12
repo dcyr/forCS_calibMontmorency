@@ -13,7 +13,7 @@ require(dplyr)
 
 initYear <- 2020
 unitConvFact <- 0.01 ### from gC /m2 to tonnes per ha
-simName <- "ForMont_testMaxAgeRanking"
+simName <- "ForMont_2022-08-09"
 a <- ifelse(grepl("ForMont", simName), "ForMont",
             ifelse(grepl("Hereford", simName), "Forêt Hereford", simName))
 
@@ -268,14 +268,14 @@ colourCount = length(unique(df$species))
 getPalette = colorRampPalette(brewer.pal(8, "Set1"))
 
 ### stacked (per species)
-pHeight <- 1.5*length(unique(df$mgmtScenario))
+pWidth <- 4*length(unique(df$mgmtScenario))
 png(filename= paste0("fps_spp_", simName, ".png"),
-    width = 8, height = pHeight, units = "in", res = 600, pointsize=10)
+    width = pWidth, height = 6, units = "in", res = 600, pointsize=10)
 
 #ggplot(df, aes(x = 2010+Time, y = BioToFPS_tonnesCTotal/areaHarvestedTotal_ha)) + 
 ggplot(df, aes(x = initYear+Time, y = BioToFPS_tonnesCTotal)) + 
     stat_summary(aes(fill = species), fun.y="sum", geom="area", position = "stack") +
-    facet_grid(mgmtScenarioName ~ scenario) +
+    facet_grid(scenario ~ mgmtScenarioName ) +
     scale_fill_manual(values = getPalette(colourCount)) +
     theme_dark() +
     theme(plot.caption = element_text(size = rel(.5), hjust = 0),
@@ -309,6 +309,7 @@ p <- p + geom_line()+
     theme_dark() +
     theme(plot.caption = element_text(size = rel(.5), hjust = 0),
           axis.text.x = element_text(angle = 45, hjust = 1)) +
+    lims(y = c(0,20000)) +
     labs(title = "Transfers vers les produits forestiers",
          subtitle = paste(areaName, simName),
          x = "",

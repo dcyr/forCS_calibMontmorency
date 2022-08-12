@@ -23,8 +23,9 @@ require(dplyr)
 inputDir <- inputPathLandis
 
 
-simDuration <- 300 #overridded if spinup == T
+simDuration <- 100 #overridded if spinup == T
 forCSVersion <- "3.1"
+smoothAgeClasses <- T
 expDesign <- list(area = c("ForMont"),#"ForMont", ),#", "Hereford"
                   scenario = c("baseline", "RCP45", "RCP85"),
                   mgmt = list(#Hereford = "1"),#c("1", "2", "3", "4", "noHarvest")),
@@ -154,12 +155,45 @@ foreach(i = 1:nrow(simInfo)) %dopar% {
                 overwrite = T)
     }
     
-    file.copy(paste0(inputDir, "/initial-communities_",
-                     areaName, ".txt"),
-              paste0(simID, "/initial-communities.txt"),
-              overwrite = T)
+    if(smoothAgeClasses) {
+      spp <- read.table(paste0(inputDir, "/species_",areaName, ".txt"), skip = 1,
+                         header = FALSE, comment.char = ">")[,1]
+      
+      initComm <- paste0(inputDir, "/initial-communities_",
+                         areaName, ".txt")
+      x <- readLines(initComm)
+      tmp <- strsplit(x, " ")
+      tmp <- lapply(tmp, function(x) x[which(nchar(x)>0)])
+      
+     
+      for (j in seq_along(tmp)) {
+        fname <- paste0(simID, "/initial-communities.txt")
+        if(j == 1) {
+          file.create(fname)
+        }
+        l <- tmp[[j]]
+  
+        if(l[1] %in% spp) {
+          sp <- l[1]
+          cohortAge <- as.numeric(l[-1])
+          cohortAge <- round(cohortAge + runif(length(cohortAge), min = -9, max = 0))
+          l <- paste0(sp, "\t", paste(cohortAge, collapse = " "))
     
-
+        } else {
+          l <- paste0(l, collapse = " ")
+        }
+        write(l, file = fname,
+              append = T)
+      }
+     
+      
+    } else {
+      file.copy(paste0(inputDir, "/initial-communities_",
+                       areaName, ".txt"),
+                paste0(simID, "/initial-communities.txt"),
+                overwrite = T)
+    }
+    
     file.copy(paste0(inputDir, "/landtypes_",
                      areaName, ".txt"),
               paste0(simID, "/landtypes.txt"),

@@ -6,7 +6,7 @@ Stands "stand-map.tif"
 Prescription CPRS 
 StandRanking MaxCohortAge 
 
-MinimumTimeSinceLastHarvest 60
+MinimumTimeSinceLastHarvest 50
 SiteSelection CompleteStandSpread 1  10 
 
 CohortsRemoved SpeciesList 
@@ -19,14 +19,14 @@ PICE.MAR 1-10(33%) 11-999(100%)
 Prescription CPI-CP
 StandRanking MaxCohortAge 
 
-MinimumTimeSinceLastHarvest 25 
+MinimumTimeSinceLastHarvest 20 
 SiteSelection CompleteStandSpread 1  10 
 
 CohortsRemoved SpeciesList 
-ABIE.BAL 1-90(33%) 91-999(100%)
-BETU.PAP 1-90(33%) 91-999(100%)
-PICE.GLA 1-90(33%) 91-999(100%)
-PICE.MAR 1-90(33%) 91-999(100%)
+ABIE.BAL 1-70(33%) 71-999(90%)
+BETU.PAP 1-70(33%) 71-999(90%)
+PICE.GLA 1-70(33%) 71-999(90%)
+PICE.MAR 1-70(33%) 71-999(90%)
 
 
 HarvestImplementations 
