@@ -14,5 +14,10 @@ notes
 docs
 *offline
 *summaryPercentiles*
-outputCompiled
+outputCompiled/agbTotal*.RData
+outputCompiled/ageMax*.RData
+outputCompiled/log_BiomassC*.RData
+outputCompiled/log_Pools*.RData
+outputCompiled/log_Summary*.RData
+outputCompiled/AGbio_output*.csv
 climate
