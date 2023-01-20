@@ -12,7 +12,7 @@ wc*
 *old
 notes
 docs
-*offline
+simPkg/offline
 *summaryPercentiles*
 outputCompiled/agbTotal*.RData
 outputCompiled/ageMax*.RData
