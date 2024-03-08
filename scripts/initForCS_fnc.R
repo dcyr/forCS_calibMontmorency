@@ -430,7 +430,7 @@ initForCS <- function(forCSInput, ### a formatted Forest Carbon Succession input
     print("Done!")
   
     ### storing T0 baseline dynamic inputs is alignment with
-    ### other scenarios is required
+    ### other scenarios are required
     if(s == "baseline" &
        alignT0withBaseline) {
       dynInputT0 <- list(ANPP = filter(forCS$ANPPTimeSeries$table,

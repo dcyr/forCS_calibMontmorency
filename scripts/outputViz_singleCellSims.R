@@ -6,6 +6,8 @@ home <- path.expand("~")
 wwd <- ifelse(Sys.info()["sysname"] == "Linux",
               paste(home, "Sync/Travail/ECCC/Landis-II/Montmorency_calib/", sep = "/"),
               "C:/Users/dcyr-z840/Sync/Travail/ECCC/Landis-II/Montmorency_calib/")
+
+### wwd <- "C:/Users/cyrdo/Documents/Sync/Travail/ECCC/Landis-II/Montmorency_calib"
 wwd <- paste(wwd, Sys.Date(), sep ="/")
 dir.create(wwd)
 setwd(wwd)

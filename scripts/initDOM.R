@@ -7,7 +7,7 @@
 rm(list = ls())
 home <- path.expand("~")
 home <- gsub("/Documents", "", home) # necessary on my Windows machine
-setwd(paste(home, "Sync/Travail/ECCC/Landis-II/Montmorency_calib", sep ="/"))
+setwd(paste(home, "Sync/Travail/ECCC/Landis-II/frqnt_2022-25", sep ="/"))
 wwd <- paste(getwd(), Sys.Date(), sep = "/")
 dir.create(wwd)
 setwd(wwd)
@@ -16,9 +16,9 @@ rm(wwd)
 require(raster)
 require(rgeos)
 require(tidyverse)
-a <- "ForMont"#c("Hereford", "Maskinonge", "ForMont")
+a <- "mixedwood-042-51"#c("Hereford", "Maskinonge", "ForMont")
 
-df <- read.csv("D:/ForCS - test/0/log_Pools.csv")#/log_Pools.csv")
+df <- read.csv("0/log_Pools.csv")#/log_Pools.csv")
 
 # 1 "Very Fast Aboveground"
 # 2 "Very Fast Belowground"
